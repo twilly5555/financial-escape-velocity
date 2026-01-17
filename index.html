@@ -1887,9 +1887,7 @@
     
 
     
-</style>
-</head>
-<body>
+    <div id="dashboardSection" style="display:none;">
         <!-- Header -->
         <div class="header">
             <h1>🚀 FINANCIAL ESCAPE VELOCITY</h1>
@@ -2917,7 +2915,7 @@
 
             // Hide quiz, show dashboard
             document.getElementById('onboardingScreen').classList.add('hidden');
-            document.querySelector('.container').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'block';
 
             // Update dashboard header
             document.getElementById('headerName').textContent = userName;
@@ -2930,7 +2928,7 @@
 
         function editAnswers() {
             document.getElementById('onboardingScreen').classList.remove('hidden');
-            document.querySelector('.container').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'none';
         }
 
         function updateDashboardFromQuiz() {
@@ -2986,7 +2984,7 @@
             updateGoalDisplay();
 
             // Hide dashboard initially
-            document.querySelector('.container').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'none';
 
             // Setup event listeners
             document.querySelectorAll('.asset-input').forEach(input => {
@@ -4008,5 +4006,6 @@ tml>
     <script src="https://cdn.jsdelivr.net/npm/chart.js">
 
 </script>
+    </div> <!-- End dashboard section -->
 </body>
 </html>
