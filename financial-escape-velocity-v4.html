@@ -1,9 +1,4 @@
-<!DOCTYPE h
-        // ===== QUIZ DATA AND FUNCTIONS =====
-
-
-        // ===== DASHBOARD FUNCTIONS =====
-tml>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -141,403 +136,6 @@ tml>
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(74, 222, 128, 0.3);
         }
-
-
-/* Onboarding Quiz Styles */
-        .onboarding-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .onboarding-screen.hidden {
-            display: none;
-        }
-
-        .quiz-container {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 20px;
-            padding: 50px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-        }
-
-        .quiz-progress {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .progress-step {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #1e293b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .progress-step.active {
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-        }
-
-        .progress-step.completed {
-            background: #4ade80;
-        }
-
-        .progress-line {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #1e293b;
-            z-index: 1;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4ade80, #22c55e);
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-
-        .question-container {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .question-container.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-title {
-            font-size: 2em;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #4ade80, #fbbf24);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .question-subtitle {
-            font-size: 1.1em;
-            color: #94a3b8;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            background: #0f172a;
-            border: 2px solid #1e293b;
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 1.1em;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #4ade80;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
-        }
-
-        .bifurcation-buttons {
-            display: flex;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .bifurcation-btn {
-            flex: 1;
-            padding: 30px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 2px solid #334155;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .bifurcation-btn:hover {
-            border-color: #4ade80;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
-        }
-
-        .bifurcation-btn.selected {
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            border-color: #4ade80;
-        }
-
-        .bifurcation-btn .icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .bifurcation-btn .title {
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .bifurcation-btn .subtitle {
-            font-size: 0.9em;
-            color: #94a3b8;
-        }
-
-        .help-flow {
-            display: none;
-            margin-top: 30px;
-            padding: 30px;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 15px;
-            border: 2px dashed #334155;
-        }
-
-        .help-flow.active {
-            display: block;
-        }
-
-        .file-upload-zone {
-            padding: 40px;
-            border: 3px dashed #4ade80;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(74, 222, 128, 0.05);
-        }
-
-        .file-upload-zone:hover {
-            background: rgba(74, 222, 128, 0.1);
-            border-color: #22c55e;
-        }
-
-        .file-upload-zone .icon {
-            font-size: 4em;
-            margin-bottom: 15px;
-        }
-
-        .coming-soon-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: linear-gradient(135deg, #fbbf24, #f97316);
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-
-        .assets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .asset-item {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 2px solid #334155;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .asset-item:hover {
-            border-color: #4ade80;
-            transform: translateY(-5px);
-        }
-
-        .asset-item .icon {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .asset-item .name {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #cbd5e1;
-        }
-
-        .asset-item input {
-            width: 100%;
-            padding: 10px;
-            background: #0f172a;
-            border: 2px solid #1e293b;
-            border-radius: 8px;
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .asset-item .allocation {
-            font-size: 0.9em;
-            color: #94a3b8;
-        }
-
-        .goal-slider-container {
-            margin: 40px 0;
-        }
-
-        .goal-slider {
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: #1e293b;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .goal-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-        }
-
-        .goal-slider::-moz-range-thumb {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
-            border: none;
-        }
-
-        .lifestyle-display {
-            margin-top: 40px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(34, 197, 94, 0.05));
-            border-radius: 15px;
-            border: 2px solid #4ade80;
-            text-align: center;
-        }
-
-        .lifestyle-display .amount {
-            font-size: 3em;
-            font-weight: bold;
-            color: #4ade80;
-            margin-bottom: 20px;
-        }
-
-        .lifestyle-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .lifestyle-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.3;
-            transition: all 0.3s ease;
-        }
-
-        .lifestyle-icon.active {
-            opacity: 1;
-            transform: scale(1.2);
-        }
-
-        .lifestyle-icon .icon {
-            font-size: 3em;
-        }
-
-        .lifestyle-icon .label {
-            font-size: 0.9em;
-            color: #94a3b8;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #4ade80, #22c55e);
-            color: #0f172a;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.4);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .btn-secondary {
-            background: #1e293b;
-            color: #ffffff;
-        }
-
-        .btn-secondary:hover {
-            background: #334155;
-        }
-
-        
 
         /* Header */
         .header {
@@ -1068,300 +666,1867 @@ tml>
     </style>
 </head>
 <body>
-    <!-- Onboarding Quiz Screen -->
-    <div class="onboarding-screen" id="onboardingScreen">
-        <div class="quiz-container">
-            <!-- Progress Bar -->
-            <div class="quiz-progress">
-                <div class="progress-line">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <div class="progress-step active" data-step="1">1</div>
-                <div class="progress-step" data-step="2">2</div>
-                <div class="progress-step" data-step="3">3</div>
-                <div class="progress-step" data-step="4">4</div>
-                <div class="progress-step" data-step="5">5</div>
-                <div class="progress-step" data-step="6">6</div>
-                <div class="progress-step" data-step="7">7</div>
-            </div>
-
-            <!-- Question 1-3: Basic Info -->
-            <div class="question-container active" id="question1">
-                <h2 class="question-title">👋 Let's Get Started</h2>
-                <p class="question-subtitle">First, tell us a bit about yourself</p>
-
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+            <h1>FINANCIAL ESCAPE VELOCITY</h1>
+            <p>Please enter your name and age to get started!</p>
+            <form class="welcome-form" onsubmit="startDashboard(event)">
                 <div class="form-group">
-                    <label>What's your name?</label>
-                    <input type="text" id="userName" placeholder="Enter your name">
+                    <label for="welcomeName">NAME</label>
+                    <input type="text" id="welcomeName" placeholder="Enter your name" required>
                 </div>
-
                 <div class="form-group">
-                    <label>How old are you?</label>
-                    <input type="number" id="userAge" placeholder="Enter your age" min="18" max="100">
+                    <label for="welcomeAge">AGE</label>
+                    <input type="number" id="welcomeAge" placeholder="Enter your age" min="18" max="100" required>
                 </div>
+                <button type="submit">CONTINUE</button>
+            </form>
+        </div>
+    </div>
 
-                <div class="form-group">
-                    <label>Where are you from?</label>
-                    <select id="userCountry">
-                        <option value="">Select your country</option>
-                        <optgroup label="Popular Countries">
-                            <option value="US">🇺🇸 United States</option>
-                            <option value="GB">🇬🇧 United Kingdom</option>
-                            <option value="CA">🇨🇦 Canada</option>
-                            <option value="AU">🇦🇺 Australia</option>
-                            <option value="NZ">🇳🇿 New Zealand</option>
-                            <option value="DE">🇩🇪 Germany</option>
-                            <option value="FR">🇫🇷 France</option>
-                            <option value="IT">🇮🇹 Italy</option>
-                            <option value="ES">🇪🇸 Spain</option>
-                            <option value="NL">🇳🇱 Netherlands</option>
-                        </optgroup>
-                        <optgroup label="Other Countries">
-                            <option value="AR">🇦🇷 Argentina</option>
-                            <option value="BR">🇧🇷 Brazil</option>
-                            <option value="CN">🇨🇳 China</option>
-                            <option value="IN">🇮🇳 India</option>
-                            <option value="JP">🇯🇵 Japan</option>
-                            <option value="MX">🇲🇽 Mexico</option>
-                            <option value="ZA">🇿🇦 South Africa</option>
-                            <option value="KR">🇰🇷 South Korea</option>
-                            <option value="SG">🇸🇬 Singapore</option>
-                            <option value="SE">🇸🇪 Sweden</option>
-                        </optgroup>
-                    </select>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 FINANCIAL ESCAPE VELOCITY</h1>
+            <div class="user-info">
+                <span id="headerName">Welcome</span>, Age <span id="headerAge">-</span>
+            </div>
+        </div>
+
+        <!-- Income Section -->
+        <div class="input-section" id="incomeSection">
+            <div class="section-header" onclick="toggleSection('incomeSection')">
+                <div class="section-header-left">
+                    <div class="section-title">
+                        <span>💰</span>
+                        <span>Income Dashboard</span>
+                    </div>
+                    <span class="section-status incomplete" id="incomeStatus">Incomplete</span>
                 </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>💼 Wages / Salary</label>
+                        <div class="input-row">
+                            <input type="number" id="wages" placeholder="0" min="0">
+                            <select id="wagesFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>📊 Business Drawings</label>
+                        <div class="input-row">
+                            <input type="number" id="business" placeholder="0" min="0">
+                            <select id="businessFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🏠 Property Income</label>
+                        <div class="input-row">
+                            <input type="number" id="propertyIncome" placeholder="0" min="0">
+                            <select id="propertyIncomeFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="complete-btn" onclick="completeSection('income')">✓ Complete Income</button>
+            </div>
+        </div>
 
-                <div class="navigation-buttons">
-                    <button class="btn btn-primary" onclick="nextQuestion(1)">Continue →</button>
+        <!-- Assets Section -->
+        <div class="input-section" id="assetsSection">
+            <div class="section-header" onclick="toggleSection('assetsSection')">
+                <div class="section-header-left">
+                    <div class="section-title">
+                        <span>💎</span>
+                        <span>Assets Dashboard</span>
+                    </div>
+                    <span class="section-status incomplete" id="assetsStatus">Incomplete</span>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>📈 Index Funds</label>
+                        <input type="number" id="indexFunds" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>📊 Bonds</label>
+                        <input type="number" id="bonds" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>💛 Gold</label>
+                        <input type="number" id="gold" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>🏦 Cash / Bank</label>
+                        <input type="number" id="cash" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>🏡 Real Estate</label>
+                        <input type="number" id="realEstate" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>💎 Crypto / BTC</label>
+                        <input type="number" id="crypto" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>🚗 Non-Performing Assets</label>
+                        <input type="number" id="nonPerforming" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>📈 Stocks (Options)</label>
+                        <input type="number" id="stocks" placeholder="0" min="0">
+                    </div>
+                    <div class="input-group">
+                        <label>🔴 Debt</label>
+                        <input type="number" id="debt" placeholder="0" min="0">
+                    </div>
+                </div>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Expected Annual Return (%)</label>
+                        <input type="number" id="expectedReturn" placeholder="17" min="0" max="100" step="0.1" value="17">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="manualOverride">
+                            <label for="manualOverride">Manual Override</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="complete-btn" onclick="completeSection('assets')">✓ Complete Assets</button>
+            </div>
+        </div>
+
+        <!-- Expenses Section -->
+        <div class="input-section" id="expensesSection">
+            <div class="section-header" onclick="toggleSection('expensesSection')">
+                <div class="section-header-left">
+                    <div class="section-title">
+                        <span>💸</span>
+                        <span>Expenses Dashboard</span>
+                    </div>
+                    <span class="section-status incomplete" id="expensesStatus">Incomplete</span>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>🏠 House / Rent</label>
+                        <div class="input-row">
+                            <input type="number" id="housing" placeholder="0" min="0">
+                            <select id="housingFreq">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🚗 Car</label>
+                        <div class="input-row">
+                            <input type="number" id="car" placeholder="0" min="0">
+                            <select id="carFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>❤️ Insurances</label>
+                        <div class="input-row">
+                            <input type="number" id="insurance" placeholder="0" min="0">
+                            <select id="insuranceFreq">
+                                <option value="yearly">Yearly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>📚 Education</label>
+                        <div class="input-row">
+                            <input type="number" id="education" placeholder="0" min="0">
+                            <select id="educationFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>✈️ Travel / Experience</label>
+                        <div class="input-row">
+                            <input type="number" id="travel" placeholder="0" min="0">
+                            <select id="travelFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>👔 Clothes / Accessories</label>
+                        <div class="input-row">
+                            <input type="number" id="clothes" placeholder="0" min="0">
+                            <select id="clothesFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🎬 Entertainment</label>
+                        <div class="input-row">
+                            <input type="number" id="entertainment" placeholder="0" min="0">
+                            <select id="entertainmentFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>💰 Loans (Interest)</label>
+                        <div class="input-row">
+                            <input type="number" id="loans" placeholder="0" min="0">
+                            <select id="loansFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>📄 Tax</label>
+                        <div class="input-row">
+                            <input type="number" id="tax" placeholder="0" min="0">
+                            <select id="taxFreq">
+                                <option value="yearly">Yearly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🐾 Animals / Children</label>
+                        <div class="input-row">
+                            <input type="number" id="animals" placeholder="0" min="0">
+                            <select id="animalsFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>💡 Utilities</label>
+                        <div class="input-row">
+                            <input type="number" id="utilities" placeholder="0" min="0">
+                            <select id="utilitiesFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🏥 Health / Wellness</label>
+                        <div class="input-row">
+                            <input type="number" id="health" placeholder="0" min="0">
+                            <select id="healthFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🍔 Food</label>
+                        <div class="input-row">
+                            <input type="number" id="food" placeholder="0" min="0">
+                            <select id="foodFreq">
+                                <option value="yearly">Yearly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>✨ Miscellaneous</label>
+                        <div class="input-row">
+                            <input type="number" id="misc" placeholder="0" min="0">
+                            <select id="miscFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="complete-btn" onclick="completeSection('expenses')">✓ Complete Expenses</button>
+            </div>
+        </div>
+
+        <!-- Dream Life Section -->
+        <div class="input-section" id="dreamSection">
+            <div class="section-header" onclick="toggleSection('dreamSection')">
+                <div class="section-header-left">
+                    <div class="section-title">
+                        <span>☁️</span>
+                        <span>Dream Life Dashboard</span>
+                    </div>
+                    <span class="section-status incomplete" id="dreamStatus">Incomplete</span>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>🏰 Dream House / Rent</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamHousing" placeholder="0" min="0">
+                            <select id="dreamHousingFreq">
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🏎️ Dream Car</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamCar" placeholder="0" min="0">
+                            <select id="dreamCarFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🎓 Education Goals</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamEducation" placeholder="0" min="0">
+                            <select id="dreamEducationFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>✈️ Travel / Experience</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamTravel" placeholder="0" min="0">
+                            <select id="dreamTravelFreq">
+                                <option value="yearly">Yearly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>👔 Clothes / Accessories</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamClothes" placeholder="0" min="0">
+                            <select id="dreamClothesFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🐾 Animals / Children</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamAnimals" placeholder="0" min="0">
+                            <select id="dreamAnimalsFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🏥 Health / Wellness</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamHealth" placeholder="0" min="0">
+                            <select id="dreamHealthFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>🍔 Food</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamFood" placeholder="0" min="0">
+                            <select id="dreamFoodFreq">
+                                <option value="yearly">Yearly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>✨ Miscellaneous</label>
+                        <div class="input-row">
+                            <input type="number" id="dreamMisc" placeholder="0" min="0">
+                            <select id="dreamMiscFreq">
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="complete-btn" onclick="completeSection('dream')">✓ Complete Dream Life</button>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em;">🚀 YOUR DASHBOARD</h2>
+
+            <div class="summary-cards">
+                <div class="summary-card income">
+                    <div class="label">💰 INCOME</div>
+                    <div class="value" id="incomeTotal">$0</div>
+                    <div class="detail">Monthly: <span id="incomeMonthly">$0</span></div>
+                    <div class="detail">Yearly: <span id="incomeYearly">$0</span></div>
+                </div>
+                <div class="summary-card assets">
+                    <div class="label">💎 ASSETS</div>
+                    <div class="value" id="assetsTotal">$0</div>
+                    <div class="detail">Annual Return: <span id="assetsReturn">$0</span></div>
+                </div>
+                <div class="summary-card expenses">
+                    <div class="label">💸 EXPENSES</div>
+                    <div class="value" id="expensesTotal">$0</div>
+                    <div class="detail">Yearly: <span id="expensesYearly">$0</span></div>
+                </div>
+                <div class="summary-card dream">
+                    <div class="label">☁️ DREAM LIFE</div>
+                    <div class="value" id="dreamTotal">$0</div>
+                    <div class="detail">Yearly: <span id="dreamYearly">$0</span></div>
                 </div>
             </div>
 
-            <!-- Question 4: Income -->
-            <div class="question-container" id="question2">
-                <h2 class="question-title">💰 Your Income</h2>
-                <p class="question-subtitle">Let's figure out your monthly income</p>
+            <div class="chart-container">
+                <canvas id="networthChart"></canvas>
+            </div>
 
-                <p style="margin-bottom: 20px; color: #cbd5e1;">Do you know your exact monthly income?</p>
-
-                <div class="bifurcation-buttons">
-                    <div class="bifurcation-btn" onclick="selectIncomePath('yes')">
-                        <div class="icon">✅</div>
-                        <div class="title">Yes</div>
-                        <div class="subtitle">I know my exact income</div>
-                    </div>
-                    <div class="bifurcation-btn" onclick="selectIncomePath('no')">
-                        <div class="icon">🧞</div>
-                        <div class="title">No, Need Help</div>
-                        <div class="subtitle">Use Income Genie</div>
-                    </div>
-                </div>
-
-                <div id="incomeYesFlow" style="display: none;">
-                    <div class="form-group">
-                        <label>Monthly Income (before tax)</label>
-                        <input type="number" id="incomeAmount" placeholder="$0" min="0" step="100">
-                    </div>
-                </div>
-
-                <div id="incomeNoFlow" class="help-flow">
-                    <h3 style="margin-bottom: 20px;">🧞 Income Genie <span class="coming-soon-badge">COMING SOON</span></h3>
-                    <p style="color: #94a3b8; margin-bottom: 20px;">Upload your bank statements and we'll automatically calculate your income</p>
-
-                    <div class="file-upload-zone">
-                        <div class="icon">📄</div>
-                        <div style="font-size: 1.1em; margin-bottom: 10px;">Drop files here or click to upload</div>
-                        <div style="font-size: 0.9em; color: #94a3b8;">Bank statements, pay stubs, etc.</div>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 30px;">
-                        <label>Or enter manually</label>
-                        <input type="number" id="incomeAmountManual" placeholder="$0" min="0" step="100">
+            <h3 style="text-align: center; margin-bottom: 30px; font-size: 2em;">🚀 YOUR PHASES</h3>
+            <div class="phases-container">
+                <!-- Lift Off -->
+                <div class="phase-card">
+                    <div class="phase-status incomplete" id="liftoffStatus">⚠️ PHASE INCOMPLETE</div>
+                    <div class="phase-content">
+                        <div class="phase-icon">🚀</div>
+                        <div class="phase-title">LIFT OFF</div>
+                        <div class="phase-message" id="liftoffMessage">Your income can not sustain your current costs</div>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="label">INCOME / MONTH</span>
+                                <span class="value" id="liftoffIncome">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">EXPENSES / MONTH</span>
+                                <span class="value" id="liftoffExpenses">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">SAVINGS / MONTH</span>
+                                <span class="value" id="liftoffSavings">$0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="navigation-buttons">
-                    <button class="btn btn-secondary" onclick="previousQuestion(2)">← Back</button>
-                    <button class="btn btn-primary" onclick="nextQuestion(2)">Continue →</button>
+                <!-- Runway -->
+                <div class="phase-card">
+                    <div class="phase-status incomplete" id="runwayStatus">⚠️ PHASE INCOMPLETE</div>
+                    <div class="phase-content">
+                        <div class="phase-icon">✈️</div>
+                        <div class="phase-title">RUNWAY</div>
+                        <div class="phase-message" id="runwayMessage">Your savings can only sustain your current lifestyle for 0 months</div>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="label">MONTHS BANKED</span>
+                                <span class="value" id="runwayMonths">0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">RECOMMENDED</span>
+                                <span class="value">12.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orbit -->
+                <div class="phase-card">
+                    <div class="phase-status incomplete" id="orbitStatus">⚠️ PHASE INCOMPLETE</div>
+                    <div class="phase-content">
+                        <div class="phase-icon">🌍</div>
+                        <div class="phase-title">ORBIT</div>
+                        <div class="phase-message" id="orbitMessage">The return on your investments can not pay out more than your current cost of living yet!</div>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="label">INTEREST / MONTH</span>
+                                <span class="value" id="orbitInterest">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">EXPENSES / MONTH</span>
+                                <span class="value" id="orbitExpenses">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">TIME TO ORBIT</span>
+                                <span class="value" id="orbitTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intergalactic -->
+                <div class="phase-card">
+                    <div class="phase-status incomplete" id="intergalacticStatus">⚠️ PHASE INCOMPLETE</div>
+                    <div class="phase-content">
+                        <div class="phase-icon">🌌</div>
+                        <div class="phase-title">INTERGALACTIC</div>
+                        <div class="phase-message" id="intergalacticMessage">The return on your investments can not pay out more than your dream life yet!</div>
+                        <div class="phase-metrics">
+                            <div class="phase-metric">
+                                <span class="label">INTEREST / MONTH</span>
+                                <span class="value" id="intergalacticInterest">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">DREAM EXPENSES</span>
+                                <span class="value" id="intergalacticDream">$0</span>
+                            </div>
+                            <div class="phase-metric">
+                                <span class="label">TIME TO GALACTIC</span>
+                                <span class="value" id="intergalacticTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Levers Section -->
+        <div class="levers-section">
+            <h2 style="text-align: center; margin-bottom: 30px; font-size: 2.5em;">🎯 PHASE PROJECTIONS</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: #94a3b8; font-size: 1.1em;">
+                Adjust the 4 levers below to see how changes to your finances can accelerate your journey through each phase.
+            </p>
+
+            <!-- Tabs -->
+            <div class="levers-tabs">
+                <div class="lever-tab active" onclick="switchLeverTab('liftoff')">
+                    🚀 Lift Off
+                </div>
+                <div class="lever-tab" onclick="switchLeverTab('runway')">
+                    ✈️ Runway
+                </div>
+                <div class="lever-tab" onclick="switchLeverTab('orbit')">
+                    🌍 Orbit
+                </div>
+                <div class="lever-tab" onclick="switchLeverTab('intergalactic')">
+                    🌌 Intergalactic
                 </div>
             </div>
 
-            <!-- Question 5: Expenses -->
-            <div class="question-container" id="question3">
-                <h2 class="question-title">💸 Your Expenses</h2>
-                <p class="question-subtitle">Let's calculate your monthly spending (including taxes)</p>
-
-                <p style="margin-bottom: 20px; color: #cbd5e1;">Do you need help calculating your expenses?</p>
-
-                <div class="bifurcation-buttons">
-                    <div class="bifurcation-btn" onclick="selectExpensePath('no')">
-                        <div class="icon">✅</div>
-                        <div class="title">No</div>
-                        <div class="subtitle">I know my expenses</div>
+            <!-- Lift Off Content -->
+            <div id="liftoffLever" class="lever-content active">
+                <div class="lever-controls">
+                    <div class="lever-control">
+                        <h4>🔽 Decrease Expenses</h4>
+                        <div class="slider-container">
+                            <input type="range" id="liftoffLever1" min="0" max="100" value="0" step="1">
+                            <input type="number" id="liftoffLever1Input" min="0" max="100" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Expenses</div>
+                            <div class="value" id="liftoffCurrentExpenses">$0</div>
+                        </div>
                     </div>
-                    <div class="bifurcation-btn" onclick="selectExpensePath('yes')">
-                        <div class="icon">🔍</div>
-                        <div class="title">Yes, Help Me</div>
-                        <div class="subtitle">Expense analyzer</div>
+                    <div class="lever-control">
+                        <h4>💰 Increase Income</h4>
+                        <div class="slider-container">
+                            <input type="range" id="liftoffLever2" min="0" max="200" value="0" step="1">
+                            <input type="number" id="liftoffLever2Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Income</div>
+                            <div class="value" id="liftoffCurrentIncome">$0</div>
+                        </div>
                     </div>
-                </div>
-
-                <div id="expenseNoFlow" style="display: none;">
-                    <div class="form-group">
-                        <label>Monthly Expenses (including tax)</label>
-                        <input type="number" id="expenseAmount" placeholder="$0" min="0" step="100">
+                    <div class="lever-control">
+                        <h4>📈 Increase ROI</h4>
+                        <div class="slider-container">
+                            <input type="range" id="liftoffLever3" min="0" max="200" value="0" step="1">
+                            <input type="number" id="liftoffLever3Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current ROI</div>
+                            <div class="value" id="liftoffCurrentROI">0%</div>
+                        </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Tax Rate (%)</label>
-                        <input type="number" id="taxRate" placeholder="25" min="0" max="100" step="1">
-                    </div>
-                </div>
-
-                <div id="expenseYesFlow" class="help-flow">
-                    <h3 style="margin-bottom: 20px;">🔍 Expense Analyzer <span class="coming-soon-badge">COMING SOON</span></h3>
-                    <p style="color: #94a3b8; margin-bottom: 20px;">Upload your tax return or expense records</p>
-
-                    <div class="file-upload-zone">
-                        <div class="icon">📊</div>
-                        <div style="font-size: 1.1em; margin-bottom: 10px;">Drop files here or click to upload</div>
-                        <div style="font-size: 0.9em; color: #94a3b8;">Tax returns, credit card statements, etc.</div>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 30px;">
-                        <label>Monthly Expenses (Or enter manually)</label>
-                        <input type="number" id="expenseAmountManual" placeholder="$0" min="0" step="100">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tax Rate (%)</label>
-                        <input type="number" id="taxRateManual" placeholder="25" min="0" max="100" step="1">
+                    <div class="lever-control">
+                        <h4>📊 Income Growth Per Year</h4>
+                        <div class="slider-container">
+                            <input type="range" id="liftoffLever4" min="0" max="200" value="0" step="1">
+                            <input type="number" id="liftoffLever4Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="navigation-buttons">
-                    <button class="btn btn-secondary" onclick="previousQuestion(3)">← Back</button>
-                    <button class="btn btn-primary" onclick="nextQuestion(3)">Continue →</button>
+                <div class="lever-results" id="liftoffResults">
+                    <div class="lever-results-grid">
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Income</div>
+                            <div class="value" id="liftoffAdjustedIncome">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Expenses</div>
+                            <div class="value" id="liftoffAdjustedExpenses">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Monthly Savings</div>
+                            <div class="value" id="liftoffMonthlySavings">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Time to Lift Off</div>
+                            <div class="value" id="liftoffTimeResult">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lever-chart-container">
+                    <canvas id="liftoffChart"></canvas>
                 </div>
             </div>
 
-            <!-- Question 6: Assets -->
-            <div class="question-container" id="question4">
-                <h2 class="question-title">🏦 Your Assets</h2>
-                <p class="question-subtitle">Tell us about everything you own</p>
-
-                <div class="assets-grid">
-                    <div class="asset-item">
-                        <div class="icon">🏠</div>
-                        <div class="name">House</div>
-                        <input type="number" class="asset-input" data-asset="house" placeholder="$0" min="0" step="1000">
-                        <div class="allocation"><span class="allocation-percent" data-asset="house">0</span>%</div>
+            <!-- Runway Content -->
+            <div id="runwayLever" class="lever-content">
+                <div class="lever-controls">
+                    <div class="lever-control">
+                        <h4>🔽 Decrease Expenses</h4>
+                        <div class="slider-container">
+                            <input type="range" id="runwayLever1" min="0" max="100" value="0" step="1">
+                            <input type="number" id="runwayLever1Input" min="0" max="100" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Expenses</div>
+                            <div class="value" id="runwayCurrentExpenses">$0</div>
+                        </div>
                     </div>
-
-                    <div class="asset-item">
-                        <div class="icon">🚗</div>
-                        <div class="name">Car</div>
-                        <input type="number" class="asset-input" data-asset="car" placeholder="$0" min="0" step="1000">
-                        <div class="allocation"><span class="allocation-percent" data-asset="car">0</span>%</div>
+                    <div class="lever-control">
+                        <h4>💰 Increase Income</h4>
+                        <div class="slider-container">
+                            <input type="range" id="runwayLever2" min="0" max="200" value="0" step="1">
+                            <input type="number" id="runwayLever2Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Income</div>
+                            <div class="value" id="runwayCurrentIncome">$0</div>
+                        </div>
                     </div>
-
-                    <div class="asset-item">
-                        <div class="icon">📈</div>
-                        <div class="name">Stocks</div>
-                        <input type="number" class="asset-input" data-asset="stocks" placeholder="$0" min="0" step="1000">
-                        <div class="allocation"><span class="allocation-percent" data-asset="stocks">0</span>%</div>
+                    <div class="lever-control">
+                        <h4>📈 Increase ROI</h4>
+                        <div class="slider-container">
+                            <input type="range" id="runwayLever3" min="0" max="200" value="0" step="1">
+                            <input type="number" id="runwayLever3Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current ROI</div>
+                            <div class="value" id="runwayCurrentROI">0%</div>
+                        </div>
                     </div>
-
-                    <div class="asset-item">
-                        <div class="icon">₿</div>
-                        <div class="name">Bitcoin</div>
-                        <input type="number" class="asset-input" data-asset="bitcoin" placeholder="$0" min="0" step="100">
-                        <div class="allocation"><span class="allocation-percent" data-asset="bitcoin">0</span>%</div>
-                    </div>
-
-                    <div class="asset-item">
-                        <div class="icon">🪙</div>
-                        <div class="name">Gold</div>
-                        <input type="number" class="asset-input" data-asset="gold" placeholder="$0" min="0" step="100">
-                        <div class="allocation"><span class="allocation-percent" data-asset="gold">0</span>%</div>
-                    </div>
-
-                    <div class="asset-item">
-                        <div class="icon">💵</div>
-                        <div class="name">Cash</div>
-                        <input type="number" class="asset-input" data-asset="cash" placeholder="$0" min="0" step="100">
-                        <div class="allocation"><span class="allocation-percent" data-asset="cash">0</span>%</div>
-                    </div>
-
-                    <div class="asset-item">
-                        <div class="icon">💼</div>
-                        <div class="name">Business</div>
-                        <input type="number" class="asset-input" data-asset="business" placeholder="$0" min="0" step="1000">
-                        <div class="allocation"><span class="allocation-percent" data-asset="business">0</span>%</div>
-                    </div>
-
-                    <div class="asset-item">
-                        <div class="icon">🎨</div>
-                        <div class="name">Other</div>
-                        <input type="number" class="asset-input" data-asset="other" placeholder="$0" min="0" step="100">
-                        <div class="allocation"><span class="allocation-percent" data-asset="other">0</span>%</div>
+                    <div class="lever-control">
+                        <h4>📊 Income Growth Per Year</h4>
+                        <div class="slider-container">
+                            <input type="range" id="runwayLever4" min="0" max="200" value="0" step="1">
+                            <input type="number" id="runwayLever4Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="margin-top: 30px; text-align: center; font-size: 1.3em; color: #4ade80;">
-                    Total Assets: <span id="totalAssets">$0</span>
+                <div class="lever-results" id="runwayResults">
+                    <div class="lever-results-grid">
+                        <div class="lever-result-item">
+                            <div class="label">Current Assets</div>
+                            <div class="value" id="runwayCurrentAssets">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Monthly Expenses</div>
+                            <div class="value" id="runwayAdjustedExpenses">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Months Banked</div>
+                            <div class="value" id="runwayMonthsBanked">0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Time to 12 Months</div>
+                            <div class="value" id="runwayTimeResult">-</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="navigation-buttons">
-                    <button class="btn btn-secondary" onclick="previousQuestion(4)">← Back</button>
-                    <button class="btn btn-primary" onclick="nextQuestion(4)">Continue →</button>
+                <div class="lever-chart-container">
+                    <canvas id="runwayChart"></canvas>
                 </div>
             </div>
 
-            <!-- Question 7: Goal -->
-            <div class="question-container" id="question5">
-                <h2 class="question-title">🎯 Your Escape Velocity Goal</h2>
-                <p class="question-subtitle">What's your dream lifestyle worth?</p>
-
-                <div class="goal-slider-container">
-                    <input type="range" class="goal-slider" id="goalSlider" min="30000" max="500000" step="10000" value="100000">
-                </div>
-
-                <div class="lifestyle-display">
-                    <div class="amount" id="goalAmount">$100,000/year</div>
-                    <p style="color: #94a3b8; margin-bottom: 30px;">That's <span id="goalMonthly">$8,333</span> per month from your investments</p>
-
-                    <div class="lifestyle-icons">
-                        <div class="lifestyle-icon" data-min="0" data-max="60000">
-                            <div class="icon">🏠</div>
-                            <div class="label">Basic Living</div>
+            <!-- Orbit Content -->
+            <div id="orbitLever" class="lever-content">
+                <div class="lever-controls">
+                    <div class="lever-control">
+                        <h4>🔽 Decrease Expenses</h4>
+                        <div class="slider-container">
+                            <input type="range" id="orbitLever1" min="0" max="100" value="0" step="1">
+                            <input type="number" id="orbitLever1Input" min="0" max="100" value="0" step="1">
+                            <span>%</span>
                         </div>
-                        <div class="lifestyle-icon" data-min="60000" data-max="120000">
-                            <div class="icon">🚗</div>
-                            <div class="label">Comfortable</div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Expenses</div>
+                            <div class="value" id="orbitCurrentExpenses">$0</div>
                         </div>
-                        <div class="lifestyle-icon" data-min="120000" data-max="200000">
-                            <div class="icon">✈️</div>
-                            <div class="label">Travel</div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>💰 Increase Income</h4>
+                        <div class="slider-container">
+                            <input type="range" id="orbitLever2" min="0" max="200" value="0" step="1">
+                            <input type="number" id="orbitLever2Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
                         </div>
-                        <div class="lifestyle-icon" data-min="200000" data-max="350000">
-                            <div class="icon">🏖️</div>
-                            <div class="label">Luxury</div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Income</div>
+                            <div class="value" id="orbitCurrentIncome">$0</div>
                         </div>
-                        <div class="lifestyle-icon" data-min="350000" data-max="1000000">
-                            <div class="icon">🚀</div>
-                            <div class="label">Ultra Wealthy</div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>📈 Increase ROI</h4>
+                        <div class="slider-container">
+                            <input type="range" id="orbitLever3" min="0" max="200" value="0" step="1">
+                            <input type="number" id="orbitLever3Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current ROI</div>
+                            <div class="value" id="orbitCurrentROI">0%</div>
+                        </div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>📊 Income Growth Per Year</h4>
+                        <div class="slider-container">
+                            <input type="range" id="orbitLever4" min="0" max="200" value="0" step="1">
+                            <input type="number" id="orbitLever4Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="navigation-buttons">
-                    <button class="btn btn-secondary" onclick="previousQuestion(5)">← Back</button>
-                    <button class="btn btn-primary" onclick="completeQuiz()">Complete & View Dashboard 🎉</button>
+                <div class="lever-results" id="orbitResults">
+                    <div class="lever-results-grid">
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Monthly Interest</div>
+                            <div class="value" id="orbitAdjustedInterest">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Monthly Expenses</div>
+                            <div class="value" id="orbitAdjustedExpenses">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Required Assets</div>
+                            <div class="value" id="orbitRequiredAssets">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Time to Orbit</div>
+                            <div class="value" id="orbitTimeResult">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lever-chart-container">
+                    <canvas id="orbitChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Intergalactic Content -->
+            <div id="intergalacticLever" class="lever-content">
+                <div class="lever-controls">
+                    <div class="lever-control">
+                        <h4>🔽 Decrease Expenses</h4>
+                        <div class="slider-container">
+                            <input type="range" id="intergalacticLever1" min="0" max="100" value="0" step="1">
+                            <input type="number" id="intergalacticLever1Input" min="0" max="100" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Expenses</div>
+                            <div class="value" id="intergalacticCurrentExpenses">$0</div>
+                        </div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>💰 Increase Income</h4>
+                        <div class="slider-container">
+                            <input type="range" id="intergalacticLever2" min="0" max="200" value="0" step="1">
+                            <input type="number" id="intergalacticLever2Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current Income</div>
+                            <div class="value" id="intergalacticCurrentIncome">$0</div>
+                        </div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>📈 Increase ROI</h4>
+                        <div class="slider-container">
+                            <input type="range" id="intergalacticLever3" min="0" max="200" value="0" step="1">
+                            <input type="number" id="intergalacticLever3Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                        <div class="current-value-inline">
+                            <div class="label">Current ROI</div>
+                            <div class="value" id="intergalacticCurrentROI">0%</div>
+                        </div>
+                    </div>
+                    <div class="lever-control">
+                        <h4>📊 Income Growth Per Year</h4>
+                        <div class="slider-container">
+                            <input type="range" id="intergalacticLever4" min="0" max="200" value="0" step="1">
+                            <input type="number" id="intergalacticLever4Input" min="0" max="500" value="0" step="1">
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lever-results" id="intergalacticResults">
+                    <div class="lever-results-grid">
+                        <div class="lever-result-item">
+                            <div class="label">Adjusted Monthly Interest</div>
+                            <div class="value" id="intergalacticAdjustedInterest">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Dream Life Expenses</div>
+                            <div class="value" id="intergalacticDreamExpenses">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Required Assets</div>
+                            <div class="value" id="intergalacticRequiredAssets">$0</div>
+                        </div>
+                        <div class="lever-result-item">
+                            <div class="label">Time to Intergalactic</div>
+                            <div class="value" id="intergalacticTimeResult">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lever-chart-container">
+                    <canvas id="intergalacticChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
-    
+    <script>
+        let chart = null;
+        let userName = '';
+        let userAge = 30;
 
-    >
+        // Welcome Screen
+        function startDashboard(event) {
+            event.preventDefault();
+            userName = document.getElementById('welcomeName').value;
+            userAge = parseInt(document.getElementById('welcomeAge').value);
+
+            document.getElementById('headerName').textContent = userName;
+            document.getElementById('headerAge').textContent = userAge;
+            document.getElementById('welcomeScreen').classList.add('hidden');
+
+            updateDashboard();
+        }
+
+        // Section Toggle
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('collapsed');
+        }
+
+        // Complete Section
+        function completeSection(sectionName) {
+            const section = document.getElementById(sectionName + 'Section');
+            const status = document.getElementById(sectionName + 'Status');
+
+            section.classList.add('collapsed');
+            status.textContent = 'Complete';
+            status.classList.remove('incomplete');
+            status.classList.add('complete');
+        }
+
+        // Utility functions
+        function convertToMonthly(amount, frequency) {
+            const multipliers = { 'weekly': 52/12, 'monthly': 1, 'yearly': 1/12 };
+            return amount * (multipliers[frequency] || 1);
+        }
+
+        function formatCurrency(amount) {
+            return '$' + Math.round(amount).toLocaleString();
+        }
+
+        // Calculate functions
+        function calculateIncome() {
+            const wages = parseFloat(document.getElementById('wages').value) || 0;
+            const wagesFreq = document.getElementById('wagesFreq').value;
+            const business = parseFloat(document.getElementById('business').value) || 0;
+            const businessFreq = document.getElementById('businessFreq').value;
+            const property = parseFloat(document.getElementById('propertyIncome').value) || 0;
+            const propertyFreq = document.getElementById('propertyIncomeFreq').value;
+
+            const monthly = convertToMonthly(wages, wagesFreq) +
+                           convertToMonthly(business, businessFreq) +
+                           convertToMonthly(property, propertyFreq);
+
+            return { monthly, yearly: monthly * 12 };
+        }
+
+        function calculateAssets() {
+            const indexFunds = parseFloat(document.getElementById('indexFunds').value) || 0;
+            const bonds = parseFloat(document.getElementById('bonds').value) || 0;
+            const gold = parseFloat(document.getElementById('gold').value) || 0;
+            const cash = parseFloat(document.getElementById('cash').value) || 0;
+            const realEstate = parseFloat(document.getElementById('realEstate').value) || 0;
+            const crypto = parseFloat(document.getElementById('crypto').value) || 0;
+            const nonPerforming = parseFloat(document.getElementById('nonPerforming').value) || 0;
+            const stocks = parseFloat(document.getElementById('stocks').value) || 0;
+            const debt = parseFloat(document.getElementById('debt').value) || 0;
+
+            const total = indexFunds + bonds + gold + cash + realEstate + crypto + nonPerforming + stocks - debt;
+            const returnRate = parseFloat(document.getElementById('expectedReturn').value) || 0;
+
+            return { total, returnRate, annualReturn: total * (returnRate / 100) };
+        }
+
+        function calculateExpenses() {
+            const items = ['housing', 'car', 'insurance', 'education', 'travel', 'clothes',
+                          'entertainment', 'loans', 'tax', 'animals', 'utilities', 'health', 'food', 'misc'];
+
+            let monthly = 0;
+            items.forEach(item => {
+                const amount = parseFloat(document.getElementById(item).value) || 0;
+                const freq = document.getElementById(item + 'Freq').value;
+                monthly += convertToMonthly(amount, freq);
+            });
+
+            return { monthly, yearly: monthly * 12 };
+        }
+
+        function calculateDreamLife() {
+            const items = ['dreamHousing', 'dreamCar', 'dreamEducation', 'dreamTravel',
+                          'dreamClothes', 'dreamAnimals', 'dreamHealth', 'dreamFood', 'dreamMisc'];
+
+            let monthly = 0;
+            items.forEach(item => {
+                const amount = parseFloat(document.getElementById(item).value) || 0;
+                const freq = document.getElementById(item + 'Freq').value;
+                monthly += convertToMonthly(amount, freq);
+            });
+
+            return { monthly, yearly: monthly * 12 };
+        }
+
+        function projectNetWorth(startAge, currentAssets, monthlyIncome, monthlyExpenses, monthlyReturnRate, years = 40) {
+            const projections = [];
+            let balance = currentAssets;
+            const monthlySavings = monthlyIncome - monthlyExpenses;
+
+            for (let month = 0; month <= years * 12; month++) {
+                if (month % 12 === 0) {
+                    projections.push({
+                        age: startAge + Math.floor(month / 12),
+                        netWorth: balance
+                    });
+                }
+                balance = balance + monthlySavings + (balance * monthlyReturnRate);
+            }
+
+            return projections;
+        }
+
+        function calculateTimeToTarget(currentAssets, monthlyIncome, monthlyExpenses, monthlyReturnRate, targetMonthlyExpense) {
+            // If already at target, return complete
+            const currentMonthlyInterest = currentAssets * monthlyReturnRate;
+            if (currentMonthlyInterest >= targetMonthlyExpense) {
+                return 'Complete';
+            }
+
+            // If not saving money (income <= expenses), can't reach orbit
+            const monthlySavings = monthlyIncome - monthlyExpenses;
+            if (monthlySavings <= 0) {
+                return 'Never (need positive savings)';
+            }
+
+            // Simulate month by month until interest covers target expense
+            let balance = currentAssets;
+            let months = 0;
+            const maxMonths = 1200; // 100 years max
+
+            while (months < maxMonths) {
+                const monthlyInterest = balance * monthlyReturnRate;
+
+                // Check if monthly interest now covers target expense
+                if (monthlyInterest >= targetMonthlyExpense) {
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+
+                    if (years > 0 && remainingMonths > 0) {
+                        return `${years}y ${remainingMonths}m`;
+                    } else if (years > 0) {
+                        return `${years} years`;
+                    } else {
+                        return `${months} months`;
+                    }
+                }
+
+                // Apply monthly formula: balance = balance + monthlySavings + (balance * monthlyReturnRate)
+                balance = balance + monthlySavings + (balance * monthlyReturnRate);
+                months++;
+            }
+
+            return '100+ years';
+        }
+
+        function updateDashboard() {
+            const income = calculateIncome();
+            const assets = calculateAssets();
+            const expenses = calculateExpenses();
+            const dream = calculateDreamLife();
+
+            // Update summary cards
+            document.getElementById('incomeTotal').textContent = formatCurrency(income.monthly);
+            document.getElementById('incomeMonthly').textContent = formatCurrency(income.monthly);
+            document.getElementById('incomeYearly').textContent = formatCurrency(income.yearly);
+
+            document.getElementById('assetsTotal').textContent = formatCurrency(assets.total);
+            document.getElementById('assetsReturn').textContent = formatCurrency(assets.annualReturn);
+
+            document.getElementById('expensesTotal').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('expensesYearly').textContent = formatCurrency(expenses.yearly);
+
+            document.getElementById('dreamTotal').textContent = formatCurrency(dream.monthly);
+            document.getElementById('dreamYearly').textContent = formatCurrency(dream.yearly);
+
+            // Calculate phases
+            const monthlySavings = income.monthly - expenses.monthly;
+            const monthlyReturnRate = assets.returnRate / 100 / 12;
+            const monthlyInterest = assets.total * monthlyReturnRate;
+            const monthsBanked = expenses.monthly > 0 ? assets.total / expenses.monthly : 0;
+
+            // Lift Off Phase
+            const liftoffComplete = income.monthly > expenses.monthly;
+            document.getElementById('liftoffStatus').textContent = liftoffComplete ? '✓ PHASE COMPLETE' : '⚠️ PHASE INCOMPLETE';
+            document.getElementById('liftoffStatus').className = 'phase-status ' + (liftoffComplete ? 'complete' : 'incomplete');
+            document.getElementById('liftoffMessage').textContent = liftoffComplete ?
+                'Your income can sustain your current costs!' :
+                'Your income can not sustain your current costs';
+            document.getElementById('liftoffIncome').textContent = formatCurrency(income.monthly);
+            document.getElementById('liftoffExpenses').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('liftoffSavings').textContent = formatCurrency(monthlySavings);
+
+            // Runway Phase
+            const runwayComplete = monthsBanked >= 12;
+            document.getElementById('runwayStatus').textContent = runwayComplete ? '✓ PHASE COMPLETE' : '⚠️ PHASE INCOMPLETE';
+            document.getElementById('runwayStatus').className = 'phase-status ' + (runwayComplete ? 'complete' : 'incomplete');
+            document.getElementById('runwayMessage').textContent = runwayComplete ?
+                'Your savings can sustain your current lifestyle for 12+ months!' :
+                `Your savings can only sustain your current lifestyle for ${monthsBanked.toFixed(2)} months. We recommend 12 to give yourself enough time and capital to push past Lift Off!`;
+            document.getElementById('runwayMonths').textContent = monthsBanked.toFixed(2);
+
+            // Orbit Phase
+            const orbitComplete = monthlyInterest > expenses.monthly;
+            document.getElementById('orbitStatus').textContent = orbitComplete ? '✓ PHASE COMPLETE' : '⚠️ PHASE INCOMPLETE';
+            document.getElementById('orbitStatus').className = 'phase-status ' + (orbitComplete ? 'complete' : 'incomplete');
+            document.getElementById('orbitMessage').textContent = orbitComplete ?
+                'The return on your investments can pay for your current lifestyle!' :
+                'The return on your investments can not pay out more than your current cost of living yet!';
+            document.getElementById('orbitInterest').textContent = formatCurrency(monthlyInterest);
+            document.getElementById('orbitExpenses').textContent = formatCurrency(expenses.monthly);
+
+            // Calculate time to orbit
+            const orbitTime = calculateTimeToTarget(assets.total, income.monthly, expenses.monthly, monthlyReturnRate, expenses.monthly);
+            document.getElementById('orbitTime').textContent = orbitTime;
+
+            // Intergalactic Phase
+            const intergalacticComplete = monthlyInterest > dream.monthly;
+            document.getElementById('intergalacticStatus').textContent = intergalacticComplete ? '✓ PHASE COMPLETE' : '⚠️ PHASE INCOMPLETE';
+            document.getElementById('intergalacticStatus').className = 'phase-status ' + (intergalacticComplete ? 'complete' : 'incomplete');
+            document.getElementById('intergalacticMessage').textContent = intergalacticComplete ?
+                'The return on your investments can pay for your dream life!' :
+                'The return on your investments can not pay out more than your dream life yet!';
+            document.getElementById('intergalacticInterest').textContent = formatCurrency(monthlyInterest);
+            document.getElementById('intergalacticDream').textContent = formatCurrency(dream.monthly);
+
+            // Calculate time to intergalactic
+            const intergalacticTime = calculateTimeToTarget(assets.total, income.monthly, expenses.monthly, monthlyReturnRate, dream.monthly);
+            document.getElementById('intergalacticTime').textContent = intergalacticTime;
+
+            // Update chart
+            updateChart(userAge, assets.total, income.monthly, expenses.monthly, monthlyReturnRate);
+        }
+
+        function updateChart(startAge, currentAssets, monthlyIncome, monthlyExpenses, monthlyReturnRate) {
+            const projections = projectNetWorth(startAge, currentAssets, monthlyIncome, monthlyExpenses, monthlyReturnRate);
+
+            const ctx = document.getElementById('networthChart').getContext('2d');
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: projections.map(p => p.age),
+                    datasets: [{
+                        label: 'Net Worth',
+                        data: projections.map(p => p.netWorth),
+                        backgroundColor: 'rgba(74, 222, 128, 0.6)',
+                        borderColor: 'rgba(74, 222, 128, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#94a3b8'
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Add event listeners
+        function addEventListeners() {
+            const inputs = document.querySelectorAll('input[type="number"], select');
+            inputs.forEach(input => {
+                input.addEventListener('input', updateDashboard);
+                input.addEventListener('change', updateDashboard);
+            });
+        }
+
+        // Initialize
+        addEventListeners();
+
+        // Lever Charts
+        let liftoffLeverChart = null;
+        let runwayLeverChart = null;
+        let orbitLeverChart = null;
+        let intergalacticLeverChart = null;
+
+        // Tab Switching
+        function switchLeverTab(tabName) {
+            // Update tab buttons
+            const tabs = document.querySelectorAll('.lever-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update content
+            const contents = document.querySelectorAll('.lever-content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName + 'Lever').classList.add('active');
+
+            // Update the specific chart
+            updateLeverCalculations(tabName);
+        }
+
+        // Firework celebration effect
+        function createFirework(x, y) {
+            const colors = ['#4ade80', '#22c55e', '#86efac'];
+            const particles = 15;
+
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+                const angle = (Math.PI * 2 * i) / particles;
+                const velocity = 40 + Math.random() * 40;
+                const xVel = Math.cos(angle) * velocity;
+                const yVel = Math.sin(angle) * velocity;
+
+                particle.style.setProperty('--x', xVel + 'px');
+                particle.style.setProperty('--y', yVel + 'px');
+                particle.style.animation = 'firework-explode 1s ease-out forwards';
+
+                document.body.appendChild(particle);
+
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+
+        function celebrateCompletion(resultsElementId) {
+            const resultsElement = document.getElementById(resultsElementId);
+            if (resultsElement) {
+                const rect = resultsElement.getBoundingClientRect();
+
+                // Add celebration styling to the entire results section
+                resultsElement.classList.add('all-complete');
+
+                // Create multiple fireworks across the results section
+                const fireworkPositions = [
+                    { x: rect.left + rect.width * 0.25, y: rect.top + rect.height * 0.3 },
+                    { x: rect.left + rect.width * 0.5, y: rect.top + rect.height * 0.4 },
+                    { x: rect.left + rect.width * 0.75, y: rect.top + rect.height * 0.3 },
+                    { x: rect.left + rect.width * 0.4, y: rect.top + rect.height * 0.6 },
+                    { x: rect.left + rect.width * 0.6, y: rect.top + rect.height * 0.6 }
+                ];
+
+                fireworkPositions.forEach((pos, index) => {
+                    setTimeout(() => createFirework(pos.x, pos.y), index * 100);
+                });
+            }
+        }
+
+        // Sync slider and input
+        function syncLeverInputs(phase, leverNum) {
+            const slider = document.getElementById(`${phase}Lever${leverNum}`);
+            const input = document.getElementById(`${phase}Lever${leverNum}Input`);
+
+            slider.addEventListener('input', function() {
+                input.value = this.value || 0;
+                updateLeverCalculations(phase);
+            });
+
+            input.addEventListener('input', function() {
+                const val = this.value === '' ? 0 : parseFloat(this.value);
+                this.value = val || 0;
+                slider.value = val || 0;
+                updateLeverCalculations(phase);
+            });
+
+            input.addEventListener('blur', function() {
+                if (this.value === '' || this.value === null) {
+                    this.value = 0;
+                    slider.value = 0;
+                    updateLeverCalculations(phase);
+                }
+            });
+        }
+
+        // Initialize lever inputs
+        function initializeLeverInputs() {
+            const phases = ['liftoff', 'runway', 'orbit', 'intergalactic'];
+            phases.forEach(phase => {
+                for (let i = 1; i <= 4; i++) {
+                    syncLeverInputs(phase, i);
+                }
+            });
+        }
+
+        // Apply levers to base values
+        function applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, monthsElapsed = 0) {
+            // Lever 1: Decrease expenses by %
+            const adjustedExpenses = baseExpenses * (1 - lever1 / 100);
+
+            // Lever 2: Increase income by % (static)
+            let adjustedIncome = baseIncome * (1 + lever2 / 100);
+
+            // Lever 4: Increase income by % per year (compound monthly)
+            const monthlyGrowthRate = lever4 / 12 / 100;
+            adjustedIncome = adjustedIncome * Math.pow(1 + monthlyGrowthRate, monthsElapsed);
+
+            // Lever 3: Increase ROI by % (additive)
+            const adjustedROI = baseROI + lever3;
+
+            return {
+                income: adjustedIncome,
+                expenses: adjustedExpenses,
+                roi: adjustedROI,
+                monthlyROI: adjustedROI / 100 / 12
+            };
+        }
+
+        // Calculate time to reach target with levers
+        function calculateLeverTime(currentAssets, baseIncome, baseExpenses, baseROI, targetAmount, checkFunction, lever1, lever2, lever3, lever4, maxMonths = 600) {
+            let balance = currentAssets;
+            let months = 0;
+            let previousBalance = balance;
+
+            while (months < maxMonths) {
+                // Apply levers with current month
+                const adjusted = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, months);
+
+                // Check if target reached
+                if (checkFunction(balance, adjusted, targetAmount)) {
+                    if (months === 0) return { text: 'Complete', months: 0 };
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    let text;
+                    if (years > 0 && remainingMonths > 0) {
+                        text = `${years}y ${remainingMonths}m`;
+                    } else if (years > 0) {
+                        text = `${years} years`;
+                    } else {
+                        text = `${months} months`;
+                    }
+                    return { text: text, months: months };
+                }
+
+                // Update balance
+                const monthlySavings = adjusted.income - adjusted.expenses;
+                const newBalance = balance + monthlySavings + (balance * adjusted.monthlyROI);
+
+                // Check if balance is actually decreasing (interest can't overcome negative savings)
+                if (months > 12 && newBalance < previousBalance * 0.99) {
+                    // Balance decreased by more than 1% - we're going backwards
+                    return { text: 'Never (assets decreasing)', months: -1 };
+                }
+
+                previousBalance = balance;
+                balance = newBalance;
+                months++;
+            }
+
+            return { text: '50+ years', months: 600 };
+        }
+
+        // Update Lift Off calculations
+        function updateLiftoffLever() {
+            const income = calculateIncome();
+            const expenses = calculateExpenses();
+            const assets = calculateAssets();
+
+            // Display current values
+            document.getElementById('liftoffCurrentIncome').textContent = formatCurrency(income.monthly);
+            document.getElementById('liftoffCurrentExpenses').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('liftoffCurrentROI').textContent = assets.returnRate.toFixed(1) + '%';
+
+            const lever1 = parseFloat(document.getElementById('liftoffLever1').value) || 0;
+            const lever2 = parseFloat(document.getElementById('liftoffLever2').value) || 0;
+            const lever3 = parseFloat(document.getElementById('liftoffLever3').value) || 0;
+            const lever4 = parseFloat(document.getElementById('liftoffLever4').value) || 0;
+
+            // Calculate adjusted values at month 0
+            const adjusted = applyLevers(income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, 0);
+
+            document.getElementById('liftoffAdjustedIncome').textContent = formatCurrency(adjusted.income);
+            document.getElementById('liftoffAdjustedExpenses').textContent = formatCurrency(adjusted.expenses);
+            document.getElementById('liftoffMonthlySavings').textContent = formatCurrency(adjusted.income - adjusted.expenses);
+
+            // Calculate time to liftoff
+            const checkLiftoff = (balance, adj, target) => adj.income > adj.expenses;
+            const timeResult = calculateLeverTime(assets.total, income.monthly, expenses.monthly, assets.returnRate, 0, checkLiftoff, lever1, lever2, lever3, lever4);
+            const timeElement = document.getElementById('liftoffTimeResult');
+            const resultsElement = document.getElementById('liftoffResults');
+            const wasComplete = resultsElement.classList.contains('all-complete');
+
+            timeElement.textContent = timeResult.text;
+
+            if (timeResult.text === 'Complete') {
+                timeElement.classList.add('complete');
+                if (!wasComplete) {
+                    celebrateCompletion('liftoffResults');
+                } else {
+                    resultsElement.classList.add('all-complete');
+                }
+            } else {
+                timeElement.classList.remove('complete');
+                resultsElement.classList.remove('all-complete');
+            }
+
+            // Update chart - show income vs expenses over time
+            updateLiftoffChart(income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, timeResult.months);
+        }
+
+        function updateLiftoffChart(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, crossoverMonths) {
+            // Default to 10 years (120 months)
+            const defaultMonths = 120;
+            let months = defaultMonths;
+
+            // For Liftoff and Runway, just show 10 years
+            // (they don't need to show past crossover)
+
+            const incomeData = [];
+            const expenseData = [];
+            const labels = [];
+
+            for (let m = 0; m <= months; m += 6) {
+                const adjusted = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m);
+                const ageAtMonth = userAge + (m / 12);
+                labels.push(ageAtMonth.toFixed(1));
+                incomeData.push(adjusted.income);
+                expenseData.push(adjusted.expenses);
+            }
+
+            const ctx = document.getElementById('liftoffChart').getContext('2d');
+            if (liftoffLeverChart) liftoffLeverChart.destroy();
+
+            liftoffLeverChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Income',
+                        data: incomeData,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Expenses',
+                        data: expenseData,
+                        borderColor: '#f87171',
+                        backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => '$' + value.toLocaleString(),
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+
+        // Update Runway calculations
+        function updateRunwayLever() {
+            const income = calculateIncome();
+            const expenses = calculateExpenses();
+            const assets = calculateAssets();
+
+            // Display current values
+            document.getElementById('runwayCurrentIncome').textContent = formatCurrency(income.monthly);
+            document.getElementById('runwayCurrentExpenses').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('runwayCurrentROI').textContent = assets.returnRate.toFixed(1) + '%';
+
+            const lever1 = parseFloat(document.getElementById('runwayLever1').value) || 0;
+            const lever2 = parseFloat(document.getElementById('runwayLever2').value) || 0;
+            const lever3 = parseFloat(document.getElementById('runwayLever3').value) || 0;
+            const lever4 = parseFloat(document.getElementById('runwayLever4').value) || 0;
+
+            const adjusted = applyLevers(income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, 0);
+            const monthsBanked = adjusted.expenses > 0 ? assets.total / adjusted.expenses : 0;
+
+            document.getElementById('runwayCurrentAssets').textContent = formatCurrency(assets.total);
+            document.getElementById('runwayAdjustedExpenses').textContent = formatCurrency(adjusted.expenses);
+            document.getElementById('runwayMonthsBanked').textContent = monthsBanked.toFixed(2);
+
+            // Calculate time to 12 months runway
+            const checkRunway = (balance, adj, target) => balance / adj.expenses >= 12;
+            const timeResult = calculateLeverTime(assets.total, income.monthly, expenses.monthly, assets.returnRate, 12, checkRunway, lever1, lever2, lever3, lever4);
+            const timeElement = document.getElementById('runwayTimeResult');
+            const resultsElement = document.getElementById('runwayResults');
+            const wasComplete = resultsElement.classList.contains('all-complete');
+
+            timeElement.textContent = timeResult.text;
+
+            if (timeResult.text === 'Complete') {
+                timeElement.classList.add('complete');
+                if (!wasComplete) {
+                    celebrateCompletion('runwayResults');
+                } else {
+                    resultsElement.classList.add('all-complete');
+                }
+            } else {
+                timeElement.classList.remove('complete');
+                resultsElement.classList.remove('all-complete');
+            }
+
+            // Update chart - show months banked over time
+            updateRunwayChart(assets.total, income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, timeResult.months);
+        }
+
+        function updateRunwayChart(currentAssets, baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, crossoverMonths) {
+            // Default to 10 years (120 months)
+            const defaultMonths = 120;
+            let months = defaultMonths;
+
+            // For Liftoff and Runway, just show 10 years
+            // (they don't need to show past crossover)
+
+            const monthsBankedData = [];
+            const labels = [];
+            let balance = currentAssets;
+
+            for (let m = 0; m <= months; m += 6) {
+                const adjusted = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m);
+                const ageAtMonth = userAge + (m / 12);
+                labels.push(ageAtMonth.toFixed(1));
+                const banked = adjusted.expenses > 0 ? balance / adjusted.expenses : 0;
+                monthsBankedData.push(banked);
+
+                // Update balance for next iteration
+                if (m < months) {
+                    for (let i = 0; i < 6; i++) {
+                        const adj = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m + i);
+                        const monthlySavings = adj.income - adj.expenses;
+                        balance = balance + monthlySavings + (balance * adj.monthlyROI);
+                    }
+                }
+            }
+
+            const ctx = document.getElementById('runwayChart').getContext('2d');
+            if (runwayLeverChart) runwayLeverChart.destroy();
+
+            runwayLeverChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Months Banked',
+                        data: monthsBankedData,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.2)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => value.toFixed(1) + ' months',
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+
+        // Update Orbit calculations
+        function updateOrbitLever() {
+            const income = calculateIncome();
+            const expenses = calculateExpenses();
+            const assets = calculateAssets();
+
+            // Display current values
+            document.getElementById('orbitCurrentIncome').textContent = formatCurrency(income.monthly);
+            document.getElementById('orbitCurrentExpenses').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('orbitCurrentROI').textContent = assets.returnRate.toFixed(1) + '%';
+
+            const lever1 = parseFloat(document.getElementById('orbitLever1').value) || 0;
+            const lever2 = parseFloat(document.getElementById('orbitLever2').value) || 0;
+            const lever3 = parseFloat(document.getElementById('orbitLever3').value) || 0;
+            const lever4 = parseFloat(document.getElementById('orbitLever4').value) || 0;
+
+            const adjusted = applyLevers(income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, 0);
+            const monthlyInterest = assets.total * adjusted.monthlyROI;
+            const requiredAssets = adjusted.expenses / adjusted.monthlyROI;
+
+            document.getElementById('orbitAdjustedInterest').textContent = formatCurrency(monthlyInterest);
+            document.getElementById('orbitAdjustedExpenses').textContent = formatCurrency(adjusted.expenses);
+            document.getElementById('orbitRequiredAssets').textContent = formatCurrency(requiredAssets);
+
+            // Calculate time to orbit
+            const checkOrbit = (balance, adj, target) => (balance * adj.monthlyROI) >= adj.expenses;
+            const timeResult = calculateLeverTime(assets.total, income.monthly, expenses.monthly, assets.returnRate, expenses.monthly, checkOrbit, lever1, lever2, lever3, lever4);
+            const timeElement = document.getElementById('orbitTimeResult');
+            const resultsElement = document.getElementById('orbitResults');
+            const wasComplete = resultsElement.classList.contains('all-complete');
+
+            timeElement.textContent = timeResult.text;
+
+            if (timeResult.text === 'Complete') {
+                timeElement.classList.add('complete');
+                if (!wasComplete) {
+                    celebrateCompletion('orbitResults');
+                } else {
+                    resultsElement.classList.add('all-complete');
+                }
+            } else {
+                timeElement.classList.remove('complete');
+                resultsElement.classList.remove('all-complete');
+            }
+
+            // Update chart
+            updateOrbitChart(assets.total, income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, timeResult.months);
+        }
+
+        function updateOrbitChart(currentAssets, baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, crossoverMonths) {
+            // Default to 10 years (120 months), or extend to 2 years past crossover
+            const defaultMonths = 120;
+            let maxMonths = defaultMonths;
+
+            if (crossoverMonths > 0 && crossoverMonths > defaultMonths) {
+                // Extend to 2 years (24 months) past the crossover point
+                maxMonths = crossoverMonths + 24;
+            }
+
+            const assetsData = [];
+            const interestData = [];
+            const expensesData = [];
+            const labels = [];
+            let balance = currentAssets;
+
+            for (let m = 0; m <= maxMonths; m += 6) {
+                const adjusted = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m);
+                const ageAtMonth = userAge + (m / 12);
+                labels.push(ageAtMonth.toFixed(1));
+                assetsData.push(balance);
+                interestData.push(balance * adjusted.monthlyROI);
+                expensesData.push(adjusted.expenses);
+
+                // Update balance for next iteration
+                if (m < maxMonths) {
+                    for (let i = 0; i < 6; i++) {
+                        const adj = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m + i);
+                        const monthlySavings = adj.income - adj.expenses;
+                        balance = balance + monthlySavings + (balance * adj.monthlyROI);
+                    }
+                }
+            }
+
+            const ctx = document.getElementById('orbitChart').getContext('2d');
+            if (orbitLeverChart) orbitLeverChart.destroy();
+
+            orbitLeverChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Monthly Interest',
+                        data: interestData,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Monthly Expenses',
+                        data: expensesData,
+                        borderColor: '#f87171',
+                        backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => '$' + value.toLocaleString(),
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+
+        // Update Intergalactic calculations
+        function updateIntergalacticLever() {
+            const income = calculateIncome();
+            const expenses = calculateExpenses();
+            const dream = calculateDreamLife();
+            const assets = calculateAssets();
+
+            // Display current values
+            document.getElementById('intergalacticCurrentIncome').textContent = formatCurrency(income.monthly);
+            document.getElementById('intergalacticCurrentExpenses').textContent = formatCurrency(expenses.monthly);
+            document.getElementById('intergalacticCurrentROI').textContent = assets.returnRate.toFixed(1) + '%';
+
+            const lever1 = parseFloat(document.getElementById('intergalacticLever1').value) || 0;
+            const lever2 = parseFloat(document.getElementById('intergalacticLever2').value) || 0;
+            const lever3 = parseFloat(document.getElementById('intergalacticLever3').value) || 0;
+            const lever4 = parseFloat(document.getElementById('intergalacticLever4').value) || 0;
+
+            const adjusted = applyLevers(income.monthly, expenses.monthly, assets.returnRate, lever1, lever2, lever3, lever4, 0);
+            const monthlyInterest = assets.total * adjusted.monthlyROI;
+            const requiredAssets = dream.monthly / adjusted.monthlyROI;
+
+            document.getElementById('intergalacticAdjustedInterest').textContent = formatCurrency(monthlyInterest);
+            document.getElementById('intergalacticDreamExpenses').textContent = formatCurrency(dream.monthly);
+            document.getElementById('intergalacticRequiredAssets').textContent = formatCurrency(requiredAssets);
+
+            // Calculate time to intergalactic
+            const checkIntergalactic = (balance, adj, target) => (balance * adj.monthlyROI) >= dream.monthly;
+            const timeResult = calculateLeverTime(assets.total, income.monthly, expenses.monthly, assets.returnRate, dream.monthly, checkIntergalactic, lever1, lever2, lever3, lever4);
+            const timeElement = document.getElementById('intergalacticTimeResult');
+            const resultsElement = document.getElementById('intergalacticResults');
+            const wasComplete = resultsElement.classList.contains('all-complete');
+
+            timeElement.textContent = timeResult.text;
+
+            if (timeResult.text === 'Complete') {
+                timeElement.classList.add('complete');
+                if (!wasComplete) {
+                    celebrateCompletion('intergalacticResults');
+                } else {
+                    resultsElement.classList.add('all-complete');
+                }
+            } else {
+                timeElement.classList.remove('complete');
+                resultsElement.classList.remove('all-complete');
+            }
+
+            // Update chart
+            updateIntergalacticChart(assets.total, income.monthly, expenses.monthly, dream.monthly, assets.returnRate, lever1, lever2, lever3, lever4, timeResult.months);
+        }
+
+        function updateIntergalacticChart(currentAssets, baseIncome, baseExpenses, dreamExpenses, baseROI, lever1, lever2, lever3, lever4, crossoverMonths) {
+            // Default to 10 years (120 months), or extend to 2 years past crossover
+            const defaultMonths = 120;
+            let maxMonths = defaultMonths;
+
+            if (crossoverMonths > 0 && crossoverMonths > defaultMonths) {
+                // Extend to 2 years (24 months) past the crossover point
+                maxMonths = crossoverMonths + 24;
+            }
+
+            const interestData = [];
+            const dreamData = [];
+            const labels = [];
+            let balance = currentAssets;
+
+            for (let m = 0; m <= maxMonths; m += 6) {
+                const adjusted = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m);
+                const ageAtMonth = userAge + (m / 12);
+                labels.push(ageAtMonth.toFixed(1));
+                interestData.push(balance * adjusted.monthlyROI);
+                dreamData.push(dreamExpenses);
+
+                // Update balance for next iteration
+                if (m < maxMonths) {
+                    for (let i = 0; i < 6; i++) {
+                        const adj = applyLevers(baseIncome, baseExpenses, baseROI, lever1, lever2, lever3, lever4, m + i);
+                        const monthlySavings = adj.income - adj.expenses;
+                        balance = balance + monthlySavings + (balance * adj.monthlyROI);
+                    }
+                }
+            }
+
+            const ctx = document.getElementById('intergalacticChart').getContext('2d');
+            if (intergalacticLeverChart) intergalacticLeverChart.destroy();
+
+            intergalacticLeverChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Monthly Interest',
+                        data: interestData,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'Dream Life Expenses',
+                        data: dreamData,
+                        borderColor: '#60a5fa',
+                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => '$' + value.toLocaleString(),
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } }
+                    }
+                }
+            });
+        }
+
+        // Update lever calculations based on active tab
+        function updateLeverCalculations(phase) {
+            switch(phase) {
+                case 'liftoff':
+                    updateLiftoffLever();
+                    break;
+                case 'runway':
+                    updateRunwayLever();
+                    break;
+                case 'orbit':
+                    updateOrbitLever();
+                    break;
+                case 'intergalactic':
+                    updateIntergalacticLever();
+                    break;
+            }
+        }
+
+        // Initialize levers
+        initializeLeverInputs();
+        updateLiftoffLever();
+    </script>
+</body>
+</html>
