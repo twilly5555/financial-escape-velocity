@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Escape Velocity Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #94a3b8;
+        }
+
+        /* Graph Section */
+        .graph-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid;
+        }
+
+        .graph-section.dystopic {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .graph-section.optimistic {
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .section-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .section-title.red {
+            color: #ef4444;
+        }
+
+        .section-title.green {
+            color: #4ade80;
+        }
+
+        .section-subtitle {
+            font-size: 1.1em;
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        .time-to-fev {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(34, 197, 94, 0.05));
+            border-radius: 15px;
+            border: 2px solid #4ade80;
+            margin-bottom: 30px;
+        }
+
+        .time-to-fev .label {
+            font-size: 1em;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+
+        .time-to-fev .time {
+            font-size: 4em;
+            font-weight: bold;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+        }
+
+        .time-to-fev .never {
+            color: #ef4444;
+            font-size: 3em;
+        }
+
+        .chart-container {
+            background: #0a0e27;
+            padding: 30px;
+            border-radius: 15px;
+            height: 500px;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #334155;
+        }
+
+        .control-label {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .control-value {
+            font-size: 1.5em;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #1e293b;
+            outline: none;
+            -webkit-appearance: none;
+            margin-top: 10px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+            border: none;
+        }
+
+        .freedom-assets {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .freedom-asset {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .freedom-asset.active {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .freedom-asset .icon {
+            font-size: 2.5em;
+        }
+
+        .freedom-asset .name {
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        .freedom-asset .roi {
+            font-size: 0.8em;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .milestone {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #334155;
+            text-align: center;
+        }
+
+        .milestone .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .milestone .label {
+            font-size: 0.9em;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .milestone .value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .milestone .value.not-reached {
+            color: #ef4444;
+        }
+
+        /* Big Prominent Metrics */
+        .big-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .big-metric {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(34, 197, 94, 0.05));
+            border: 3px solid #4ade80;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .big-metric.red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            border-color: #ef4444;
+        }
+
+        .big-metric.yellow {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+            border-color: #fbbf24;
+        }
+
+        .big-metric .metric-label {
+            font-size: 1.1em;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .big-metric .metric-value {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+        }
+
+        .big-metric.red .metric-value {
+            color: #ef4444;
+        }
+
+        .big-metric.yellow .metric-value {
+            color: #fbbf24;
+        }
+
+        .big-metric .metric-subtext {
+            font-size: 0.9em;
+            color: #64748b;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💀 YOUR DYSTOPIAN FUTURE</h1>
+            <p>This is where you're headed if nothing changes...</p>
+            <button onclick="window.location.href='quiz-working.html'" style="margin-top: 15px; padding: 12px 30px; background: linear-gradient(135deg, #4ade80, #22c55e); border: none; border-radius: 10px; color: #0f172a; font-size: 1em; font-weight: bold; cursor: pointer;">✏️ Edit Quiz Answers</button>
+        </div>
+
+        <!-- Graph 1: Current Reality (Red/Dystopic) -->
+        <div class="graph-section dystopic">
+            <h2 class="section-title red">📉 Current Trajectory</h2>
+            <p class="section-subtitle">Based on your current asset allocation and income</p>
+
+            <div class="big-metrics">
+                <div class="big-metric red">
+                    <div class="metric-label">Current Net Worth</div>
+                    <div class="metric-value" id="currentNetWorth">$50k</div>
+                </div>
+                <div class="big-metric yellow">
+                    <div class="metric-label">💼 Replace Work Income</div>
+                    <div class="metric-value" id="replaceWorkTime">Never</div>
+                    <div class="metric-subtext">When passive income = work income</div>
+                </div>
+                <div class="big-metric">
+                    <div class="metric-label">🚀 Financial Escape Velocity</div>
+                    <div class="metric-value" id="fevTime">Never</div>
+                    <div class="metric-subtext">$1M assets + $250k/year income</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="dystopicChart"></canvas>
+            </div>
+        </div>
+
+        <div class="header">
+            <h1 style="background: linear-gradient(90deg, #4ade80, #22c55e); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✨ YOUR FREEDOM FUTURE</h1>
+            <p>This is what's possible with Freedom Assets...</p>
+        </div>
+
+        <!-- Graph 2: Freedom Assets Scenario (Green/Optimistic) -->
+        <div class="graph-section optimistic">
+            <h2 class="section-title green">📈 Freedom Assets Path</h2>
+            <p class="section-subtitle">Adjust your returns and contributions to see your escape velocity</p>
+
+            <div class="time-to-fev">
+                <div class="label">TIME TO FINANCIAL ESCAPE VELOCITY</div>
+                <div class="time" id="timeToFEV">6y 3m 12d</div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="optimisticChart"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>📊 Annual ROI</span>
+                        <span class="control-value" id="roiValue">15%</span>
+                    </div>
+                    <input type="range" class="slider" id="roiSlider" min="-10" max="60" value="15" step="1">
+                    <div class="freedom-assets">
+                        <div class="freedom-asset" data-roi="8">
+                            <div class="icon">🏠</div>
+                            <div class="name">Real Estate</div>
+                            <div class="roi">~8%</div>
+                        </div>
+                        <div class="freedom-asset" data-roi="10">
+                            <div class="icon">🥇</div>
+                            <div class="name">Gold</div>
+                            <div class="roi">~10%</div>
+                        </div>
+                        <div class="freedom-asset" data-roi="25">
+                            <div class="icon">📈</div>
+                            <div class="name">Tech Stocks</div>
+                            <div class="roi">~25%</div>
+                        </div>
+                        <div class="freedom-asset" data-roi="50">
+                            <div class="icon">₿</div>
+                            <div class="name">Bitcoin</div>
+                            <div class="roi">~50%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>💰 Monthly Contribution</span>
+                        <span class="control-value" id="contributionValue">$1,000</span>
+                    </div>
+                    <input type="range" class="slider" id="contributionSlider" min="200" max="20000" value="1000" step="100">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load quiz data from localStorage
+        let quizData = null;
+        let userData = null;
+
+        // Format currency with millions
+        function formatCurrency(value) {
+            if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'k';
+            }
+            return '$' + value.toLocaleString();
+        }
+
+        function loadQuizData() {
+            const saved = localStorage.getItem('fev_quiz_data');
+            if (saved) {
+                quizData = JSON.parse(saved);
+
+                // Calculate total assets from quiz
+                let totalAssets = 0;
+                const assetAllocation = {};
+
+                for (let asset in quizData.assets) {
+                    const value = quizData.assets[asset] || 0;
+                    totalAssets += value;
+                    assetAllocation[asset] = value;
+                }
+
+                // Convert quiz data to userData format
+                userData = {
+                    name: quizData.name || 'User',
+                    age: parseInt(quizData.age) || 30,
+                    currentIncome: parseFloat(quizData.income) || 6000,
+                    currentExpenses: parseFloat(quizData.expenses) || 4000,
+                    currentAssets: totalAssets || 50000,
+                    assetAllocation: assetAllocation
+                };
+
+                // Update header with user name
+                document.querySelector('.header h1').innerHTML = `💀 ${userData.name.toUpperCase()}'S DYSTOPIAN FUTURE`;
+
+                // Update milestone target
+                REPLACE_INCOME_TARGET = userData.currentIncome;
+
+                return true;
+            }
+
+            // Default mock data if no quiz data
+            userData = {
+                name: 'User',
+                age: 30,
+                currentIncome: 6000,
+                currentExpenses: 4000,
+                currentAssets: 50000,
+                assetAllocation: {
+                    stocks: 30000,
+                    cash: 20000
+                }
+            };
+
+            return false;
+        }
+
+        // ROI rates for different asset types (10-year historical average)
+        // Matches quiz asset types: house, car, stocks, bitcoin, gold, cash, business, other
+        const assetROI = {
+            house: 0.05,
+            car: 0.00,
+            stocks: 0.10,
+            bitcoin: 0.50,
+            gold: 0.10,
+            cash: 0.01,
+            business: 0.12,
+            other: 0.07,
+            // Also support old names
+            bonds: 0.03,
+            techStocks: 0.25,
+            realEstate: 0.08
+        };
+
+        // Financial milestones (will be set after userData loads)
+        let REPLACE_INCOME_TARGET = 6000; // Monthly passive income needed
+        const FEV_ASSETS = 1000000; // $1M in assets
+        const FEV_INCOME = 250000 / 12; // $250k/year = ~$20,833/month
+
+        let dystopicChart = null;
+        let optimisticChart = null;
+
+        // Calculate weighted average ROI from current allocation
+        function calculateCurrentROI() {
+            let totalAssets = 0;
+            let weightedROI = 0;
+
+            for (let asset in userData.assetAllocation) {
+                const value = userData.assetAllocation[asset];
+                totalAssets += value;
+                weightedROI += value * (assetROI[asset] || 0.07);
+            }
+
+            return totalAssets > 0 ? (weightedROI / totalAssets) : 0.07;
+        }
+
+        // Project net worth over time
+        function projectNetWorth(years, roi, monthlyContribution = 0) {
+            const labels = [];
+            const netWorth = [];
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+
+            for (let year = 0; year <= years; year++) {
+                labels.push((userData.age + year).toString());
+                netWorth.push(balance);
+
+                // Project next 12 months
+                if (year < years) {
+                    for (let month = 0; month < 12; month++) {
+                        const contribution = monthlyContribution > 0 ? monthlyContribution : monthlySavings;
+                        balance = balance * (1 + monthlyROI) + contribution;
+                    }
+                }
+            }
+
+            return { labels, netWorth };
+        }
+
+        // Find when milestone is reached
+        function findMilestoneYear(roi, monthlyContribution, checkFunction) {
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+            let months = 0;
+            const maxMonths = 30 * 12; // 30 years
+
+            while (months < maxMonths) {
+                const contribution = monthlyContribution > 0 ? monthlyContribution : monthlySavings;
+                const monthlyPassiveIncome = balance * monthlyROI;
+
+                if (checkFunction(balance, monthlyPassiveIncome)) {
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    const days = Math.floor((months % 1) * 30);
+                    return { reached: true, years, months: remainingMonths, days, totalMonths: months };
+                }
+
+                balance = balance * (1 + monthlyROI) + contribution;
+                months++;
+            }
+
+            return { reached: false };
+        }
+
+        // Format time
+        function formatTime(result) {
+            if (!result.reached) return 'Never';
+            if (result.years === 0 && result.months === 0) return `${result.days}d`;
+            if (result.years === 0) return `${result.months}m ${result.days}d`;
+            return `${result.years}y ${result.months}m ${result.days}d`;
+        }
+
+        // Create dystopic chart (red theme)
+        function createDystopicChart() {
+            const currentROI = calculateCurrentROI();
+            const projection = projectNetWorth(30, currentROI);
+
+            // Update current net worth display
+            document.getElementById('currentNetWorth').textContent = formatCurrency(userData.currentAssets);
+
+            const ctx = document.getElementById('dystopicChart').getContext('2d');
+            if (dystopicChart) dystopicChart.destroy();
+
+            dystopicChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: projection.labels,
+                    datasets: [{
+                        label: 'Net Worth',
+                        data: projection.netWorth,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Replace Work Income (' + formatCurrency(REPLACE_INCOME_TARGET * 300) + ')',
+                        data: Array(projection.labels.length).fill(REPLACE_INCOME_TARGET * 300),
+                        borderColor: '#fbbf24',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }, {
+                        label: 'Financial Escape Velocity (' + formatCurrency(FEV_ASSETS) + ')',
+                        data: Array(projection.labels.length).fill(FEV_ASSETS),
+                        borderColor: '#60a5fa',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => {
+                                    if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Age',
+                                color: '#94a3b8'
+                            },
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Check milestones
+            const replaceWork = findMilestoneYear(currentROI, 0, (balance, income) => income >= REPLACE_INCOME_TARGET);
+            const reachFEV = findMilestoneYear(currentROI, 0, (balance, income) => balance >= FEV_ASSETS && income >= FEV_INCOME);
+
+            document.getElementById('replaceWorkTime').textContent = formatTime(replaceWork);
+            document.getElementById('replaceWorkTime').className = replaceWork.reached ? 'metric-value' : 'metric-value';
+
+            document.getElementById('fevTime').textContent = formatTime(reachFEV);
+            document.getElementById('fevTime').className = reachFEV.reached ? 'metric-value' : 'metric-value';
+        }
+
+        // Create optimistic chart (green theme)
+        function createOptimisticChart() {
+            const roi = parseFloat(document.getElementById('roiSlider').value) / 100;
+            const contribution = parseFloat(document.getElementById('contributionSlider').value);
+
+            // Find FEV milestone to determine chart range
+            const fevResult = findMilestoneYear(roi, contribution, (balance, income) => balance >= FEV_ASSETS && income >= FEV_INCOME);
+
+            // Calculate chart years: if FEV reached, show up to 5 years after; otherwise show 30 years
+            const yearsToShow = fevResult.reached ? Math.min(Math.ceil(fevResult.totalMonths / 12) + 5, 30) : 30;
+            const projection = projectNetWorth(yearsToShow, roi, contribution);
+
+            const ctx = document.getElementById('optimisticChart').getContext('2d');
+            if (optimisticChart) optimisticChart.destroy();
+
+            optimisticChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: projection.labels,
+                    datasets: [{
+                        label: 'Net Worth with Freedom Assets',
+                        data: projection.netWorth,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Financial Escape Velocity',
+                        data: Array(projection.labels.length).fill(FEV_ASSETS),
+                        borderColor: '#60a5fa',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => {
+                                    if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Age',
+                                color: '#94a3b8'
+                            },
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update time to FEV
+            const timeDisplay = document.getElementById('timeToFEV');
+
+            if (fevResult.reached) {
+                timeDisplay.textContent = formatTime(fevResult);
+                timeDisplay.className = 'time';
+            } else {
+                timeDisplay.textContent = 'Never 😢';
+                timeDisplay.className = 'time never';
+            }
+
+            // Update freedom asset highlights
+            const roiPercent = roi * 100;
+            document.querySelectorAll('.freedom-asset').forEach(asset => {
+                const assetROIValue = parseFloat(asset.dataset.roi);
+                if (roiPercent >= assetROIValue - 5 && roiPercent <= assetROIValue + 5) {
+                    asset.classList.add('active');
+                } else {
+                    asset.classList.remove('active');
+                }
+            });
+        }
+
+        // Slider event listeners
+        document.getElementById('roiSlider').addEventListener('input', function() {
+            document.getElementById('roiValue').textContent = this.value + '%';
+            createOptimisticChart();
+        });
+
+        document.getElementById('contributionSlider').addEventListener('input', function() {
+            document.getElementById('contributionValue').textContent = '$' + parseInt(this.value).toLocaleString();
+            createOptimisticChart();
+        });
+
+        // Initialize
+        const hasQuizData = loadQuizData();
+
+        if (!hasQuizData) {
+            // Show alert if no quiz data
+            const goToQuiz = confirm('No quiz data found! Complete the onboarding quiz first.\n\nWould you like to open the quiz now?');
+            if (goToQuiz) {
+                window.location.href = 'quiz-working.html';
+            }
+        }
+
+        createDystopicChart();
+        createOptimisticChart();
+    </script>
+</body>
+</html>
