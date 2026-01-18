@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform to Freedom Assets</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #94a3b8;
+        }
+
+        /* Big Time Metrics */
+        .time-metric-main {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(34, 197, 94, 0.05));
+            border: 3px solid #4ade80;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .time-metric-main .metric-label {
+            font-size: 1.3em;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .time-metric-main .metric-value {
+            font-size: 4.5em;
+            font-weight: bold;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .time-metric-main .metric-subtext {
+            font-size: 1.1em;
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .time-metric-main .metric-subtext .time-saved {
+            font-size: 1.5em;
+            color: #4ade80;
+        }
+
+        .chart-with-milestones {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: #0a0e27;
+            padding: 30px;
+            border-radius: 15px;
+            height: 500px;
+        }
+
+        .milestones-sidebar {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #334155;
+        }
+
+        .milestones-sidebar h3 {
+            color: #4ade80;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .milestone-item {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4ade80;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .milestone-item .milestone-age {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .milestone-item .milestone-value {
+            font-size: 1.2em;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #334155;
+        }
+
+        .control-label {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .control-value {
+            font-size: 1.5em;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #1e293b;
+            outline: none;
+            -webkit-appearance: none;
+            margin-top: 10px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+            border: none;
+        }
+
+        .freedom-assets {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .freedom-asset {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .freedom-asset.active {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .freedom-asset .icon {
+            font-size: 2.5em;
+        }
+
+        .freedom-asset .name {
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        .freedom-asset .roi {
+            font-size: 0.8em;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .lock-button {
+            display: block;
+            margin: 50px auto;
+            padding: 25px 60px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            border: none;
+            border-radius: 15px;
+            color: #0f172a;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .lock-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(74, 222, 128, 0.4);
+        }
+
+        @media (max-width: 1200px) {
+            .chart-with-milestones {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ TRANSFORM TO FREEDOM ASSETS</h1>
+            <p>Adjust your strategy and watch your future transform...</p>
+        </div>
+
+        <!-- Time Metrics -->
+        <div class="time-metric-main">
+            <div class="metric-label">🚀 Time to Financial Escape Velocity</div>
+            <div class="metric-value" id="fevTime">6y 3m</div>
+            <div class="metric-subtext">
+                Time Saved: <span class="time-saved" id="timeSaved">0y 0m</span> vs dystopian timeline
+            </div>
+        </div>
+
+        <!-- Chart with Milestones -->
+        <div class="chart-with-milestones">
+            <div class="chart-container">
+                <canvas id="freedomChart"></canvas>
+            </div>
+            <div class="milestones-sidebar">
+                <h3>NET WORTH</h3>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone3Age">36</div>
+                    <div class="milestone-value" id="milestone3Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone5Age">38</div>
+                    <div class="milestone-value" id="milestone5Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone10Age">43</div>
+                    <div class="milestone-value" id="milestone10Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone20Age">53</div>
+                    <div class="milestone-value" id="milestone20Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone50Age">83</div>
+                    <div class="milestone-value" id="milestone50Value">$0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-label">
+                    <span>📊 Annual ROI</span>
+                    <span class="control-value" id="roiValue">15%</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 10px; font-size: 0.9em; color: #64748b;">
+                    Current Asset ROI: <span style="color: #ef4444; font-weight: bold;" id="currentAssetROI">$5,000</span>
+                    → New ROI: <span style="color: #4ade80; font-weight: bold;" id="newAssetROI">$7,500</span>
+                </div>
+                <input type="range" class="slider" id="roiSlider" min="-10" max="60" value="15" step="1">
+                <div class="freedom-assets">
+                    <div class="freedom-asset" data-roi="8">
+                        <div class="icon">🏠</div>
+                        <div class="name">Real Estate</div>
+                        <div class="roi">~8%</div>
+                    </div>
+                    <div class="freedom-asset" data-roi="10">
+                        <div class="icon">🧈</div>
+                        <div class="name">Gold</div>
+                        <div class="roi">~10%</div>
+                    </div>
+                    <div class="freedom-asset" data-roi="25">
+                        <div class="icon">📈</div>
+                        <div class="name">Tech Stocks</div>
+                        <div class="roi">~25%</div>
+                    </div>
+                    <div class="freedom-asset" data-roi="50">
+                        <div class="icon">₿</div>
+                        <div class="name">Bitcoin</div>
+                        <div class="roi">~50%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="control-label">
+                    <span>💰 Monthly Contribution</span>
+                    <span class="control-value" id="contributionValue">$1,000</span>
+                </div>
+                <input type="range" class="slider" id="contributionSlider" min="200" max="20000" value="1000" step="100">
+                <div class="freedom-assets" style="margin-top: 15px;">
+                    <div class="freedom-asset contribution-level" data-threshold="0">
+                        <div class="icon">💵</div>
+                    </div>
+                    <div class="freedom-asset contribution-level" data-threshold="3000">
+                        <div class="icon">💸</div>
+                    </div>
+                    <div class="freedom-asset contribution-level" data-threshold="7000">
+                        <div class="icon">💰</div>
+                    </div>
+                    <div class="freedom-asset contribution-level" data-threshold="12000">
+                        <div class="icon">🏦</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="lock-button" id="lockButton">
+            🔒 Lock This In & See Your Future
+        </button>
+    </div>
+
+    <script>
+        let quizData = null;
+        let userData = null;
+        let dystopianData = null;
+        let freedomChart = null;
+
+        function formatCurrency(value) {
+            if (value >= 1000000000) {
+                return '$' + (value / 1000000000).toFixed(2) + 'B';
+            } else if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(2) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'k';
+            }
+            return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('fev_quiz_data');
+            if (saved) {
+                quizData = JSON.parse(saved);
+
+                let totalAssets = 0;
+                const assetAllocation = {};
+
+                for (let asset in quizData.assets) {
+                    const value = quizData.assets[asset] || 0;
+                    totalAssets += value;
+                    assetAllocation[asset] = value;
+                }
+
+                userData = {
+                    name: quizData.name || 'User',
+                    age: parseInt(quizData.age) || 30,
+                    currentIncome: parseFloat(quizData.income) || 6000,
+                    currentExpenses: parseFloat(quizData.expenses) || 4000,
+                    currentAssets: totalAssets || 50000,
+                    dreamLife: parseFloat(quizData.goal) || 100000,
+                    currentROI: parseFloat(quizData.currentROI) || 0.07,
+                    assetAllocation: assetAllocation
+                };
+
+                const dystopianSaved = localStorage.getItem('fev_dystopian_data');
+                if (dystopianSaved) {
+                    dystopianData = JSON.parse(dystopianSaved);
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        let FEV_ASSETS = 1000000;
+        let FEV_INCOME = 250000 / 12;
+
+        const assetROI = {
+            house: 0.05, car: 0.00, stocks: 0.10, bitcoin: 0.50,
+            gold: 0.10, cash: 0.01, business: 0.12, other: 0.07
+        };
+
+        function calculateCurrentROI() {
+            // Use the ROI from the quiz that user entered directly
+            return userData.currentROI || 0.07;
+        }
+
+        function projectNetWorth(years, roi, monthlyContribution = 0) {
+            const labels = [];
+            const netWorth = [];
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+
+            for (let year = 0; year <= years; year++) {
+                labels.push((userData.age + year).toString());
+                netWorth.push(balance);
+
+                if (year < years) {
+                    for (let month = 0; month < 12; month++) {
+                        // Add both monthly savings AND additional contribution
+                        const contribution = monthlySavings + monthlyContribution;
+                        balance = balance * (1 + monthlyROI) + contribution;
+                    }
+                }
+            }
+
+            return { labels, netWorth };
+        }
+
+        function findMilestoneYear(roi, monthlyContribution, checkFunction) {
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+            let months = 0;
+            const maxMonths = 50 * 12;
+
+            while (months < maxMonths) {
+                // Add both monthly savings AND additional contribution
+                const contribution = monthlySavings + monthlyContribution;
+                const monthlyPassiveIncome = balance * monthlyROI;
+
+                if (checkFunction(balance, monthlyPassiveIncome)) {
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    const days = Math.floor((months % 1) * 30);
+                    return { reached: true, years, months: remainingMonths, days, totalMonths: months };
+                }
+
+                balance = balance * (1 + monthlyROI) + contribution;
+                months++;
+            }
+
+            return { reached: false };
+        }
+
+        function formatTime(result) {
+            if (!result.reached) return 'Never';
+            if (result.years === 0 && result.months === 0) return `${result.days}d`;
+            if (result.years === 0) return `${result.months}m`;
+            return `${result.years}y ${result.months}m`;
+        }
+
+        function updateMilestones(projection) {
+            const milestones = [3, 5, 10, 20, 50];
+
+            milestones.forEach(years => {
+                const age = userData.age + years;
+                const value = projection.netWorth[years] || projection.netWorth[projection.netWorth.length - 1];
+
+                document.getElementById(`milestone${years}Age`).textContent = age;
+                document.getElementById(`milestone${years}Value`).textContent = formatCurrency(value);
+            });
+        }
+
+        function updateChart() {
+            const roi = parseFloat(document.getElementById('roiSlider').value) / 100;
+            const contribution = parseFloat(document.getElementById('contributionSlider').value);
+
+            // Calculate FEV based on dream life and CURRENT SLIDER ROI (not dystopian ROI)
+            FEV_INCOME = userData.dreamLife / 12; // Monthly dream life income (dreamLife is annual)
+            FEV_ASSETS = userData.dreamLife / roi; // Assets needed at FREEDOM ROI to generate dream life income
+
+            const fevResult = findMilestoneYear(roi, contribution, (balance, income) => balance >= FEV_ASSETS && income >= FEV_INCOME);
+
+            const yearsToShow = fevResult.reached ? Math.min(Math.ceil(fevResult.totalMonths / 12) + 5, 30) : 30;
+            const projection = projectNetWorth(50, roi, contribution);
+
+            updateMilestones(projection);
+
+            const ctx = document.getElementById('freedomChart').getContext('2d');
+            if (freedomChart) freedomChart.destroy();
+
+            const chartLabels = projection.labels.slice(0, yearsToShow + 1);
+            const chartData = projection.netWorth.slice(0, yearsToShow + 1);
+
+            freedomChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Net Worth with Freedom Assets',
+                        data: chartData,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Financial Escape Velocity',
+                        data: Array(chartLabels.length).fill(FEV_ASSETS),
+                        borderColor: '#60a5fa',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => {
+                                    if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Age', color: '#94a3b8' },
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Update time metrics
+            document.getElementById('fevTime').textContent = formatTime(fevResult);
+
+            // Calculate time saved
+            if (dystopianData && dystopianData.reachFEV && fevResult.reached) {
+                const dystopianMonths = dystopianData.reachFEV.totalMonths || 360;
+                const freedomMonths = fevResult.totalMonths;
+                const savedMonths = dystopianMonths - freedomMonths;
+
+                if (savedMonths > 0) {
+                    const savedYears = Math.floor(savedMonths / 12);
+                    const savedRemainingMonths = savedMonths % 12;
+                    document.getElementById('timeSaved').textContent = `${savedYears}y ${savedRemainingMonths}m`;
+                } else {
+                    document.getElementById('timeSaved').textContent = '0y 0m';
+                }
+            } else if (dystopianData && !dystopianData.reachFEV.reached && fevResult.reached) {
+                document.getElementById('timeSaved').textContent = 'Infinity! 🎉';
+            }
+
+            // Update ROI highlights
+            const roiPercent = roi * 100;
+            document.querySelectorAll('.freedom-asset[data-roi]').forEach(asset => {
+                const assetROIValue = parseFloat(asset.dataset.roi);
+                if (roiPercent >= assetROIValue - 5 && roiPercent <= assetROIValue + 5) {
+                    asset.classList.add('active');
+                } else {
+                    asset.classList.remove('active');
+                }
+            });
+
+            // Update contribution level highlights
+            const contributionAmount = parseInt(contribution);
+            document.querySelectorAll('.contribution-level').forEach(level => {
+                const threshold = parseFloat(level.dataset.threshold);
+                if (contributionAmount >= threshold) {
+                    level.classList.add('active');
+                } else {
+                    level.classList.remove('active');
+                }
+            });
+        }
+
+        // Slider event listeners
+        document.getElementById('roiSlider').addEventListener('input', function() {
+            document.getElementById('roiValue').textContent = this.value + '%';
+
+            // Update new ROI dollar amount
+            const newROI = parseFloat(this.value) / 100;
+            document.getElementById('newAssetROI').textContent = formatCurrency(userData.currentAssets * newROI);
+
+            updateChart();
+        });
+
+        document.getElementById('contributionSlider').addEventListener('input', function() {
+            document.getElementById('contributionValue').textContent = '$' + parseInt(this.value).toLocaleString();
+            updateChart();
+        });
+
+        // Lock button
+        document.getElementById('lockButton').addEventListener('click', function() {
+            const roi = parseFloat(document.getElementById('roiSlider').value) / 100;
+            const contribution = parseFloat(document.getElementById('contributionSlider').value);
+
+            localStorage.setItem('fev_freedom_data', JSON.stringify({
+                roi: roi,
+                contribution: contribution
+            }));
+
+            window.location.href = 'dashboard-final.html';
+        });
+
+        // Initialize
+        const hasData = loadData();
+
+        if (!hasData) {
+            alert('No quiz data found! Please complete the quiz first.');
+            window.location.href = 'quiz-working.html';
+        } else {
+            // Display current asset ROI
+            const currentROI = calculateCurrentROI();
+            document.getElementById('currentAssetROI').textContent = formatCurrency(userData.currentAssets * currentROI);
+
+            // Display initial new ROI
+            const initialROI = parseFloat(document.getElementById('roiSlider').value) / 100;
+            document.getElementById('newAssetROI').textContent = formatCurrency(userData.currentAssets * initialROI);
+
+            updateChart();
+
+            // Initialize contribution level highlights
+            const initialContribution = parseInt(document.getElementById('contributionSlider').value);
+            document.querySelectorAll('.contribution-level').forEach(level => {
+                const threshold = parseFloat(level.dataset.threshold);
+                if (initialContribution >= threshold) {
+                    level.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

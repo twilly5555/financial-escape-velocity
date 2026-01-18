@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dystopian Future</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #94a3b8;
+        }
+
+        /* User Stats Grid */
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #334155;
+        }
+
+        .stat-card.income {
+            border-color: rgba(251, 191, 36, 0.5);
+        }
+
+        .stat-card.assets {
+            border-color: rgba(74, 222, 128, 0.5);
+        }
+
+        .stat-card.expenses {
+            border-color: rgba(239, 68, 68, 0.5);
+        }
+
+        .stat-card.dream {
+            border-color: rgba(96, 165, 250, 0.5);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.9em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .stat-subvalue {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+
+        /* Big Prominent Metrics */
+        .big-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .big-metric {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(34, 197, 94, 0.05));
+            border: 3px solid #4ade80;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .big-metric.red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05));
+            border-color: #ef4444;
+        }
+
+        .big-metric.yellow {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+            border-color: #fbbf24;
+        }
+
+        .big-metric .metric-label {
+            font-size: 1.1em;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .big-metric .metric-value {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+        }
+
+        .big-metric.red .metric-value {
+            color: #ef4444;
+        }
+
+        .big-metric.yellow .metric-value {
+            color: #fbbf24;
+        }
+
+        .big-metric .metric-subtext {
+            font-size: 0.9em;
+            color: #64748b;
+            margin-top: 10px;
+        }
+
+        .chart-with-milestones {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            background: #0a0e27;
+            padding: 30px;
+            border-radius: 15px;
+            height: 500px;
+        }
+
+        .milestones-sidebar {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #334155;
+        }
+
+        .milestones-sidebar h3 {
+            color: #ef4444;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .milestone-item {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ef4444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .milestone-item .milestone-age {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ef4444;
+        }
+
+        .milestone-item .milestone-value {
+            font-size: 1.2em;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .transform-button {
+            display: block;
+            margin: 50px auto;
+            padding: 25px 60px;
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            border: none;
+            border-radius: 15px;
+            color: #0f172a;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .transform-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(74, 222, 128, 0.4);
+        }
+
+        @media (max-width: 1200px) {
+            .chart-with-milestones {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💀 YOUR DYSTOPIAN FUTURE</h1>
+            <p>This is where you're headed if nothing changes...</p>
+        </div>
+
+        <!-- Big Metrics -->
+        <div class="big-metrics">
+            <div class="big-metric red">
+                <div class="metric-label">Current Net Worth</div>
+                <div class="metric-value" id="currentNetWorth">$50,000</div>
+                <div class="metric-subtext">Current Asset Return: <span id="currentROI">$5,000</span> / year</div>
+            </div>
+            <div class="big-metric yellow">
+                <div class="metric-label">💼 Replace Work Income</div>
+                <div class="metric-value" id="replaceWorkTime">Never</div>
+                <div class="metric-subtext">When passive income = work income</div>
+            </div>
+            <div class="big-metric red">
+                <div class="metric-label">🚀 Financial Escape Velocity</div>
+                <div class="metric-value" id="fevTime">Never</div>
+                <div class="metric-subtext">When passive income = dream life</div>
+            </div>
+        </div>
+
+        <!-- Chart with Milestones -->
+        <div class="chart-with-milestones">
+            <div class="chart-container">
+                <canvas id="dystopicChart"></canvas>
+            </div>
+            <div class="milestones-sidebar">
+                <h3>NET WORTH</h3>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone3Age">36</div>
+                    <div class="milestone-value" id="milestone3Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone5Age">38</div>
+                    <div class="milestone-value" id="milestone5Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone10Age">43</div>
+                    <div class="milestone-value" id="milestone10Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone20Age">53</div>
+                    <div class="milestone-value" id="milestone20Value">$0</div>
+                </div>
+                <div class="milestone-item">
+                    <div class="milestone-age" id="milestone50Age">83</div>
+                    <div class="milestone-value" id="milestone50Value">$0</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="transform-button" onclick="window.location.href='dashboard-freedom.html'">
+            ✨ Transform to Freedom Assets
+        </button>
+    </div>
+
+    <script>
+        let quizData = null;
+        let userData = null;
+        let dystopicChart = null;
+
+        // Format currency
+        function formatCurrency(value) {
+            if (value >= 1000000000) {
+                return '$' + (value / 1000000000).toFixed(2) + 'B';
+            } else if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(2) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'k';
+            }
+            return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+
+        function formatCurrencyFull(value) {
+            return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+
+        function loadQuizData() {
+            const saved = localStorage.getItem('fev_quiz_data');
+            if (saved) {
+                quizData = JSON.parse(saved);
+
+                let totalAssets = 0;
+                const assetAllocation = {};
+
+                for (let asset in quizData.assets) {
+                    const value = quizData.assets[asset] || 0;
+                    totalAssets += value;
+                    assetAllocation[asset] = value;
+                }
+
+                userData = {
+                    name: quizData.name || 'User',
+                    age: parseInt(quizData.age) || 30,
+                    currentIncome: parseFloat(quizData.income) || 6000,
+                    currentExpenses: parseFloat(quizData.expenses) || 4000,
+                    currentAssets: totalAssets || 50000,
+                    dreamLife: parseFloat(quizData.goal) || 100000,
+                    currentROI: parseFloat(quizData.currentROI) || 0.07,
+                    assetAllocation: assetAllocation
+                };
+
+                document.querySelector('.header h1').innerHTML = `💀 ${userData.name.toUpperCase()}'S DYSTOPIAN FUTURE`;
+                return true;
+            }
+
+            userData = {
+                name: 'User',
+                age: 30,
+                currentIncome: 6000,
+                currentExpenses: 4000,
+                currentAssets: 50000,
+                dreamLife: 100000,
+                assetAllocation: { stocks: 30000, cash: 20000 }
+            };
+            return false;
+        }
+
+        const assetROI = {
+            house: 0.05, car: 0.00, stocks: 0.10, bitcoin: 0.50,
+            gold: 0.10, cash: 0.01, business: 0.12, other: 0.07
+        };
+
+        let REPLACE_INCOME_TARGET = 6000;
+        let FEV_ASSETS = 1000000;
+        let FEV_INCOME = 250000 / 12;
+
+        function calculateCurrentROI() {
+            // Use the ROI from the quiz that user entered directly
+            return userData.currentROI || 0.07;
+        }
+
+        function projectNetWorth(years, roi, monthlyContribution = 0) {
+            const labels = [];
+            const netWorth = [];
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+
+            for (let year = 0; year <= years; year++) {
+                labels.push((userData.age + year).toString());
+                netWorth.push(balance);
+
+                if (year < years) {
+                    for (let month = 0; month < 12; month++) {
+                        const contribution = monthlyContribution > 0 ? monthlyContribution : monthlySavings;
+                        balance = balance * (1 + monthlyROI) + contribution;
+                    }
+                }
+            }
+
+            return { labels, netWorth };
+        }
+
+        function findMilestoneYear(roi, monthlyContribution, checkFunction) {
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+            let months = 0;
+            const maxMonths = 50 * 12;
+
+            while (months < maxMonths) {
+                const contribution = monthlyContribution > 0 ? monthlyContribution : monthlySavings;
+                const monthlyPassiveIncome = balance * monthlyROI;
+
+                if (checkFunction(balance, monthlyPassiveIncome)) {
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    const days = Math.floor((months % 1) * 30);
+                    return { reached: true, years, months: remainingMonths, days, totalMonths: months };
+                }
+
+                balance = balance * (1 + monthlyROI) + contribution;
+                months++;
+            }
+
+            return { reached: false };
+        }
+
+        function formatTime(result) {
+            if (!result.reached) return 'Never';
+            if (result.years === 0 && result.months === 0) return `${result.days}d`;
+            if (result.years === 0) return `${result.months}m ${result.days}d`;
+            return `${result.years}y ${result.months}m`;
+        }
+
+
+        function updateMilestones(projection) {
+            const milestones = [3, 5, 10, 20, 50];
+
+            milestones.forEach(years => {
+                const age = userData.age + years;
+                const value = projection.netWorth[years] || projection.netWorth[projection.netWorth.length - 1];
+
+                document.getElementById(`milestone${years}Age`).textContent = age;
+                document.getElementById(`milestone${years}Value`).textContent = formatCurrency(value);
+            });
+        }
+
+        function createDystopicChart() {
+            const currentROI = calculateCurrentROI();
+            const projection = projectNetWorth(50, currentROI);
+
+            updateMilestones(projection);
+            document.getElementById('currentNetWorth').textContent = formatCurrencyFull(userData.currentAssets);
+            document.getElementById('currentROI').textContent = formatCurrencyFull(userData.currentAssets * currentROI);
+
+            // Set FEV based on dream life (assets needed to generate dream life income at current ROI)
+            REPLACE_INCOME_TARGET = userData.currentIncome;
+            FEV_ASSETS = userData.dreamLife / currentROI; // Assets needed: Annual Dream Life / ROI
+            FEV_INCOME = userData.dreamLife / 12; // Monthly dream life income (dreamLife is annual)
+
+            const ctx = document.getElementById('dystopicChart').getContext('2d');
+            if (dystopicChart) dystopicChart.destroy();
+
+            const chartLabels = projection.labels.slice(0, 31);
+            const chartData = projection.netWorth.slice(0, 31);
+
+            dystopicChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Net Worth',
+                        data: chartData,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Replace Work Income',
+                        data: Array(chartLabels.length).fill(REPLACE_INCOME_TARGET * 300),
+                        borderColor: '#fbbf24',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }, {
+                        label: 'Financial Escape Velocity',
+                        data: Array(chartLabels.length).fill(FEV_ASSETS),
+                        borderColor: '#60a5fa',
+                        borderDash: [5, 5],
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: value => {
+                                    if (value >= 1000000) return '$' + (value / 1000000).toFixed(1) + 'M';
+                                    return '$' + (value / 1000).toFixed(0) + 'k';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Age', color: '#94a3b8' },
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8' } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const replaceWork = findMilestoneYear(currentROI, 0, (balance, income) => income >= REPLACE_INCOME_TARGET);
+            const reachFEV = findMilestoneYear(currentROI, 0, (balance, income) => balance >= FEV_ASSETS && income >= FEV_INCOME);
+
+            document.getElementById('replaceWorkTime').textContent = formatTime(replaceWork);
+            document.getElementById('fevTime').textContent = formatTime(reachFEV);
+
+            // Save dystopian data for comparison
+            localStorage.setItem('fev_dystopian_data', JSON.stringify({
+                replaceWork: replaceWork,
+                reachFEV: reachFEV
+            }));
+        }
+
+        const hasQuizData = loadQuizData();
+
+        if (!hasQuizData) {
+            const goToQuiz = confirm('No quiz data found! Complete the onboarding quiz first.\n\nWould you like to open the quiz now?');
+            if (goToQuiz) {
+                window.location.href = 'quiz-working.html';
+            }
+        }
+
+        createDystopicChart();
+    </script>
+</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Financial Future</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #94a3b8;
+        }
+
+        /* Slave to Freedom Spectrum */
+        .spectrum-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid #334155;
+        }
+
+        .spectrum-title {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .spectrum-bar {
+            position: relative;
+            height: 80px;
+            background: linear-gradient(90deg, #ef4444 0%, #fbbf24 25%, #4ade80 50%, #22c55e 75%, #10b981 100%);
+            border-radius: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(74, 222, 128, 0.3);
+        }
+
+        .spectrum-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #ffffff;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        .spectrum-marker::before {
+            content: 'You Are Here';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            color: #ffffff;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .spectrum-fev-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #4ade80;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.8);
+        }
+
+        .spectrum-fev-marker::before {
+            content: '🚀 FEV Achieved';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            color: #4ade80;
+            white-space: nowrap;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .spectrum-labels {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin-top: 15px;
+        }
+
+        .spectrum-labels .label {
+            font-size: 0.9em;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .spectrum-labels .label.start {
+            color: #ef4444;
+        }
+
+        .spectrum-labels .label.end {
+            color: #4ade80;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #334155;
+            text-align: center;
+        }
+
+        .stat-card.success {
+            border-color: rgba(74, 222, 128, 0.5);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.9em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .stat-subtext {
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        /* Combined Chart */
+        .chart-section {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #334155;
+            margin-bottom: 40px;
+        }
+
+        .chart-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            background: linear-gradient(90deg, #ef4444, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .chart-container {
+            background: #0a0e27;
+            padding: 30px;
+            border-radius: 15px;
+            height: 500px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            padding: 20px 40px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-button.primary {
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            color: #0f172a;
+        }
+
+        .action-button.secondary {
+            background: linear-gradient(135deg, #334155, #1e293b);
+            color: #ffffff;
+            border: 2px solid #4ade80;
+        }
+
+        .action-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(74, 222, 128, 0.4);
+        }
+
+        @media (max-width: 1200px) {
+            .chart-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 YOUR FINANCIAL TRANSFORMATION</h1>
+            <p>Here's the path from slave to freedom</p>
+        </div>
+
+        <!-- Slave to Freedom Spectrum -->
+        <div class="spectrum-container">
+            <div class="spectrum-title">Slave to Freedom Spectrum</div>
+            <div class="spectrum-bar">
+                <!-- Current Position Marker -->
+                <div class="spectrum-marker" id="currentPositionMarker"></div>
+                <!-- FEV Achievement Marker -->
+                <div class="spectrum-fev-marker" id="fevPositionMarker"></div>
+            </div>
+            <div class="spectrum-labels">
+                <div class="label start">⛓️ Slave Assets<br>$0 Net Worth</div>
+                <div class="label">Breaking Even</div>
+                <div class="label end">🦅 Freedom Assets<br>Financial Escape Velocity</div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card success">
+                <div class="stat-icon">⏰</div>
+                <div class="stat-label">Time Saved</div>
+                <div class="stat-value" id="timeSaved">5y 3m</div>
+                <div class="stat-subtext">Years accelerated to freedom</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-label">Financial Escape Velocity</div>
+                <div class="stat-value" id="fevTime">6y 3m</div>
+                <div class="stat-subtext">Time to reach FEV with freedom assets</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-icon">💰</div>
+                <div class="stat-label">Net Worth at FEV</div>
+                <div class="stat-value" id="netWorthAtFEV">$1.2M</div>
+                <div class="stat-subtext">Your wealth when you achieve freedom</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-icon">📊</div>
+                <div class="stat-label">Freedom ROI</div>
+                <div class="stat-value" id="freedomROI">25%</div>
+                <div class="stat-subtext">Your committed annual return</div>
+            </div>
+        </div>
+
+        <!-- Combined Chart -->
+        <div class="chart-section">
+            <h2>💀 Dystopian Path vs ✨ Freedom Path</h2>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-button secondary" onclick="window.location.href='dashboard-freedom.html'">
+                ⚙️ Adjust Strategy
+            </button>
+            <button class="action-button primary" onclick="window.location.href='quiz-working.html'">
+                🔄 Start Over
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let quizData = null;
+        let userData = null;
+        let dystopianData = null;
+        let freedomData = null;
+        let comparisonChart = null;
+
+        function formatCurrency(value) {
+            if (value >= 1000000000) {
+                return '$' + (value / 1000000000).toFixed(2) + 'B';
+            } else if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(2) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'k';
+            }
+            return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('fev_quiz_data');
+            if (saved) {
+                quizData = JSON.parse(saved);
+
+                let totalAssets = 0;
+                const assetAllocation = {};
+
+                for (let asset in quizData.assets) {
+                    const value = quizData.assets[asset] || 0;
+                    totalAssets += value;
+                    assetAllocation[asset] = value;
+                }
+
+                userData = {
+                    name: quizData.name || 'User',
+                    age: parseInt(quizData.age) || 30,
+                    currentIncome: parseFloat(quizData.income) || 6000,
+                    currentExpenses: parseFloat(quizData.expenses) || 4000,
+                    currentAssets: totalAssets || 50000,
+                    dreamLife: parseFloat(quizData.goal) || 100000,
+                    currentROI: parseFloat(quizData.currentROI) || 0.07,
+                    assetAllocation: assetAllocation
+                };
+
+                const dystopianSaved = localStorage.getItem('fev_dystopian_data');
+                if (dystopianSaved) {
+                    dystopianData = JSON.parse(dystopianSaved);
+                }
+
+                const freedomSaved = localStorage.getItem('fev_freedom_data');
+                if (freedomSaved) {
+                    freedomData = JSON.parse(freedomSaved);
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        const assetROI = {
+            house: 0.05, car: 0.00, stocks: 0.10, bitcoin: 0.50,
+            gold: 0.10, cash: 0.01, business: 0.12, other: 0.07
+        };
+
+        let FEV_ASSETS = 1000000;
+        let FEV_INCOME = 250000 / 12;
+
+        function calculateCurrentROI() {
+            // Use the ROI from the quiz that user entered directly
+            return userData.currentROI || 0.07;
+        }
+
+        function projectNetWorth(years, roi, monthlyContribution = 0) {
+            const labels = [];
+            const netWorth = [];
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+
+            for (let year = 0; year <= years; year++) {
+                labels.push((userData.age + year).toString());
+                netWorth.push(balance);
+
+                if (year < years) {
+                    for (let month = 0; month < 12; month++) {
+                        // For freedom path (monthlyContribution > 0): add both savings AND contribution
+                        // For dystopian path (monthlyContribution = 0): just add savings
+                        const contribution = monthlySavings + monthlyContribution;
+                        balance = balance * (1 + monthlyROI) + contribution;
+                    }
+                }
+            }
+
+            return { labels, netWorth };
+        }
+
+        function findMilestoneYear(roi, monthlyContribution, checkFunction) {
+            let balance = userData.currentAssets;
+            const monthlySavings = userData.currentIncome - userData.currentExpenses;
+            const monthlyROI = roi / 12;
+            let months = 0;
+            const maxMonths = 30 * 12;
+
+            while (months < maxMonths) {
+                // For freedom path (monthlyContribution > 0): add both savings AND contribution
+                // For dystopian path (monthlyContribution = 0): just add savings
+                const contribution = monthlySavings + monthlyContribution;
+                const monthlyPassiveIncome = balance * monthlyROI;
+
+                if (checkFunction(balance, monthlyPassiveIncome)) {
+                    const years = Math.floor(months / 12);
+                    const remainingMonths = months % 12;
+                    const days = Math.floor((months % 1) * 30);
+                    return { reached: true, years, months: remainingMonths, days, totalMonths: months, balance: balance };
+                }
+
+                balance = balance * (1 + monthlyROI) + contribution;
+                months++;
+            }
+
+            return { reached: false };
+        }
+
+        function formatTime(result) {
+            if (!result.reached) return 'Never';
+            if (result.years === 0 && result.months === 0) return `${result.days}d`;
+            if (result.years === 0) return `${result.months}m`;
+            return `${result.years}y ${result.months}m`;
+        }
+
+        function updateSpectrum() {
+            // Calculate current position as percentage (0% = $0, 100% = FEV)
+            const currentNetWorth = userData.currentAssets;
+            const currentPercentage = Math.min((currentNetWorth / FEV_ASSETS) * 100, 100);
+
+            // Calculate FEV achievement position
+            const freedomROI = freedomData ? freedomData.roi : 0.15;
+            const freedomContribution = freedomData ? freedomData.contribution : 1000;
+            const fevResult = findMilestoneYear(freedomROI, freedomContribution, (balance, income) => balance >= FEV_ASSETS && income >= FEV_INCOME);
+
+            let fevPercentage = 100;
+            if (fevResult.reached) {
+                const fevNetWorth = fevResult.balance;
+                fevPercentage = Math.min((fevNetWorth / (FEV_ASSETS * 2)) * 100 + 50, 100);
+            }
+
+            // Update marker positions
+            document.getElementById('currentPositionMarker').style.left = currentPercentage + '%';
+            document.getElementById('fevPositionMarker').style.left = fevPercentage + '%';
+        }
+
+        function updateStats() {
+            const freedomROI = freedomData ? freedomData.roi : 0.15;
+            const freedomContribution = freedomData ? freedomData.contribution : 1000;
+
+            // Calculate FEV based on dream life and freedom ROI
+            FEV_INCOME = userData.dreamLife / 12; // Monthly dream life income (dreamLife is annual)
+            const freedomFevAssets = userData.dreamLife / freedomROI; // Assets needed at freedom ROI
+
+            const fevResult = findMilestoneYear(freedomROI, freedomContribution, (balance, income) => balance >= freedomFevAssets && income >= FEV_INCOME);
+
+            // Time to FEV
+            document.getElementById('fevTime').textContent = formatTime(fevResult);
+
+            // Time Saved
+            if (dystopianData && dystopianData.reachFEV && fevResult.reached) {
+                const dystopianMonths = dystopianData.reachFEV.totalMonths || 360;
+                const freedomMonths = fevResult.totalMonths;
+                const savedMonths = dystopianMonths - freedomMonths;
+
+                if (savedMonths > 0) {
+                    const savedYears = Math.floor(savedMonths / 12);
+                    const savedRemainingMonths = savedMonths % 12;
+                    document.getElementById('timeSaved').textContent = `${savedYears}y ${savedRemainingMonths}m`;
+                } else {
+                    document.getElementById('timeSaved').textContent = '0y 0m';
+                }
+            } else if (dystopianData && !dystopianData.reachFEV.reached && fevResult.reached) {
+                document.getElementById('timeSaved').textContent = '∞';
+            }
+
+            // Net Worth at FEV
+            if (fevResult.reached) {
+                document.getElementById('netWorthAtFEV').textContent = formatCurrency(fevResult.balance);
+            } else {
+                document.getElementById('netWorthAtFEV').textContent = 'N/A';
+            }
+
+            // Freedom ROI
+            document.getElementById('freedomROI').textContent = (freedomROI * 100).toFixed(0) + '%';
+        }
+
+        // Scale values logarithmically for more dramatic visual effect
+        function scaleValue(value) {
+            if (value <= 0) return 0;
+            // Use a logarithmic scale that accelerates growth for higher values
+            // This makes the chart more visually interesting
+            return Math.pow(value, 0.7);
+        }
+
+        function createCharts() {
+            const currentROI = calculateCurrentROI();
+
+            const freedomROI = freedomData ? freedomData.roi : 0.15;
+            const freedomContribution = freedomData ? freedomData.contribution : 1000;
+
+            // Calculate FEV based on dream life
+            FEV_INCOME = userData.dreamLife / 12; // Monthly dream life income (dreamLife is annual)
+
+            // Calculate separate FEV assets for dystopian and freedom (different ROIs)
+            const dystopianFevAssets = userData.dreamLife / currentROI; // Assets needed at current ROI
+            const freedomFevAssets = userData.dreamLife / freedomROI; // Assets needed at freedom ROI
+
+            // Calculate freedom FEV for comparison
+            const fevResult = findMilestoneYear(freedomROI, freedomContribution, (balance, income) => balance >= freedomFevAssets && income >= FEV_INCOME);
+
+            // Calculate years to show: 5 years after freedom crosses FEV, or 30 years minimum
+            let yearsToShow = 30;
+            if (fevResult.reached) {
+                const freedomFevYears = Math.ceil(fevResult.totalMonths / 12);
+                yearsToShow = freedomFevYears + 5;
+            }
+
+            const dystopianProjection = projectNetWorth(yearsToShow, currentROI);
+            const freedomProjection = projectNetWorth(yearsToShow, freedomROI, freedomContribution);
+
+            // Use labels from projections
+            const labels = dystopianProjection.labels;
+
+            // Get net worth data and apply scaling
+            const dystopianNetWorth = dystopianProjection.netWorth.map(scaleValue);
+            const freedomNetWorth = freedomProjection.netWorth.map(scaleValue);
+            const dystopianFevScaled = scaleValue(dystopianFevAssets);
+            const freedomFevScaled = scaleValue(freedomFevAssets);
+
+            // Store original values for tooltips
+            const dystopianOriginal = dystopianProjection.netWorth;
+            const freedomOriginal = freedomProjection.netWorth;
+
+            // Find when dystopian path crosses FEV
+            const dystopianFevResult = findMilestoneYear(currentROI, 0, (balance, income) => balance >= dystopianFevAssets && income >= FEV_INCOME);
+
+            // Find when freedom path crosses FEV
+            const freedomFevResult = findMilestoneYear(freedomROI, freedomContribution, (balance, income) => balance >= freedomFevAssets && income >= FEV_INCOME);
+
+            // Custom plugin to draw FEV crosshair lines (vertical only)
+            const fevCrosshairPlugin = {
+                id: 'fevCrosshair',
+                afterDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    const chartArea = chart.chartArea;
+                    const xScale = chart.scales.x;
+
+                    ctx.save();
+
+                    // Draw dystopian FEV vertical line
+                    if (dystopianFevResult.reached) {
+                        const dystopianFevAge = userData.age + Math.ceil(dystopianFevResult.totalMonths / 12);
+                        const dystopianX = xScale.getPixelForValue(dystopianFevAge.toString());
+
+                        ctx.strokeStyle = '#ef4444';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([5, 5]);
+                        ctx.beginPath();
+                        ctx.moveTo(dystopianX, chartArea.top);
+                        ctx.lineTo(dystopianX, chartArea.bottom);
+                        ctx.stroke();
+
+                        // Label at top
+                        ctx.fillStyle = '#ef4444';
+                        ctx.font = 'bold 12px Arial';
+                        ctx.fillText('💀 FEV', dystopianX - 25, chartArea.top - 5);
+                    }
+
+                    // Draw freedom FEV vertical line
+                    if (freedomFevResult.reached) {
+                        const freedomFevAge = userData.age + Math.ceil(freedomFevResult.totalMonths / 12);
+                        const freedomX = xScale.getPixelForValue(freedomFevAge.toString());
+
+                        ctx.strokeStyle = '#4ade80';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([5, 5]);
+                        ctx.beginPath();
+                        ctx.moveTo(freedomX, chartArea.top);
+                        ctx.lineTo(freedomX, chartArea.bottom);
+                        ctx.stroke();
+
+                        // Label at top
+                        ctx.fillStyle = '#4ade80';
+                        ctx.font = 'bold 12px Arial';
+                        ctx.fillText('✨ FEV', freedomX - 25, chartArea.top - 5);
+                    }
+
+                    ctx.restore();
+                }
+            };
+
+            // Combined Chart
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            comparisonChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '💀 Dystopian Path',
+                        data: dystopianNetWorth,
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        borderWidth: 3
+                    }, {
+                        label: '✨ Freedom Path',
+                        data: freedomNetWorth,
+                        borderColor: '#4ade80',
+                        backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        borderWidth: 3
+                    }]
+                },
+                plugins: [fevCrosshairPlugin],
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    // Reverse the scaling for display
+                                    const originalValue = Math.pow(value, 1/0.7);
+                                    if (originalValue >= 1000000000) return '$' + (originalValue / 1000000000).toFixed(1) + 'B';
+                                    if (originalValue >= 1000000) return '$' + (originalValue / 1000000).toFixed(1) + 'M';
+                                    return '$' + (originalValue / 1000).toFixed(0) + 'k';
+                                },
+                                color: '#94a3b8'
+                            },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Age', color: '#94a3b8' },
+                            ticks: { color: '#94a3b8' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#94a3b8',
+                                font: { size: 12 },
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            padding: 15,
+                            displayColors: true,
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    return 'Age ' + tooltipItems[0].label;
+                                },
+                                label: function(context) {
+                                    const datasetIndex = context.datasetIndex;
+                                    const index = context.dataIndex;
+
+                                    // Show original unscaled values
+                                    if (datasetIndex === 0) {
+                                        return '💀 Dystopian: ' + formatCurrency(dystopianOriginal[index]);
+                                    } else if (datasetIndex === 1) {
+                                        return '✨ Freedom: ' + formatCurrency(freedomOriginal[index]);
+                                    }
+                                    return '';
+                                },
+                                afterBody: function(tooltipItems) {
+                                    // Calculate and show the difference
+                                    const index = tooltipItems[0].dataIndex;
+                                    const difference = freedomOriginal[index] - dystopianOriginal[index];
+                                    if (difference > 0) {
+                                        return '\n💰 Advantage: ' + formatCurrency(difference);
+                                    } else if (difference < 0) {
+                                        return '\n⚠️ Behind by: ' + formatCurrency(Math.abs(difference));
+                                    }
+                                    return '';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        const hasData = loadData();
+
+        if (!hasData) {
+            alert('No data found! Please complete the quiz first.');
+            window.location.href = 'quiz-working.html';
+        } else {
+            updateSpectrum();
+            updateStats();
+            createCharts();
+        }
+    </script>
+</body>
+</html>
