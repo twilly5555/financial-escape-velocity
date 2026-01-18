@@ -2772,6 +2772,8 @@
 
         function nextQuestion(current) {
             // Save current question data
+            console.log("nextQuestion called with:", current);
+            alert("Function called! Current: " + current);
             if (current === 1) {
                 quizData.name = document.getElementById('userName').value;
                 quizData.age = document.getElementById('userAge').value;
